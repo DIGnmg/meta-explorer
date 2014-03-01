@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('metaexplorerApp', [
+angular.module('metaexplorer', [
+  'metaexplorer.controllers',
+  'metaexplorer.services',
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -10,6 +12,10 @@ angular.module('metaexplorerApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
         controller: 'MainCtrl'
       })
       .otherwise({
