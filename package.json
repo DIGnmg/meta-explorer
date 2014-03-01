@@ -1,7 +1,13 @@
 {
   "name": "metaexplorer",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "express": "3.x",
+    "ejs": "*",
+    "passport": "~0.1.17",
+    "passport-instagram": ">= 0.0.0",
+    "request": "~2.27.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
@@ -40,10 +46,17 @@
     "karma-coffee-preprocessor": "~0.1.3",
     "karma-phantomjs-launcher": "~0.1.2",
     "karma": "~0.10.9",
-    "karma-ng-html2js-preprocessor": "~0.1.0"
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "grunt-express": "~1.0.0-beta2",
+    "matchdep": "~0.1.2",
+    "connect-livereload": "~0.2.0",
+    "grunt-open": "~0.2.0",
+    "grunt-bower-task": "~0.3.4",
+    "grunt-contrib-less": "~0.8.3"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.8.0",
+    "npm": "1.2.x"
   },
   "scripts": {
     "test": "grunt test"
