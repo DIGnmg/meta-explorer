@@ -1,0 +1,23 @@
+<header class="navbar navbar-default navbar-fixed-top">
+  <div class="header">
+	<ul class="nav nav-pills pull-right">
+	  <li><a ng-href="#">Home</a></li>
+	  <li><a href="#/login">Log In</a></li>
+	  <li class="active"><a href="#/account">Account</a></li>
+	</ul>
+	<input data-ng-model="item" name="search" type="text">
+	<button data-ng-click="search(item)">Search</button>
+	<h3 class="text-muted">metaexplorer</h3>
+  </div>
+</header>
+<section class="row">
+	<h1>{{user.full_name}}</h1>
+ 	<ul class="list-group">
+	  <li class="list-group-item col-md-4" data-ng-repeat="item in place"><img src="{{item.images.thumbnail.url}}"/><p>{{item.caption.text}}</p><p>{{item.created_time | date:'shortDate'}}</p></li>
+  </ul>
+</section>
+<div class="footer">
+  <p>{{place.latitude}}</p>
+  <p>{{place.longitude}}</p>
+  <p>♥ from the Yeoman team</p>
+</div>

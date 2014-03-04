@@ -1,43 +1,28 @@
-
+'use strict'
 /**
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path')
-  , passport = require('passport')
-  , request = require('request')
-  , util = require('util')
-  , InstagramStrategy = require('passport-instagram').Strategy;
+var express = require('express'),
+  mongoose = require('mongoose'),
+  routes = require('./routes'),
+  http = require('http'),
+  path = require('path'),
+  passport = require('passport'),
+  request = require('request'),
+  util = require('util'),
+  InstagramStrategy = require('passport-instagram').Strategy;
+
 var app = express();
 
-// Setting up client ids
-var INSTAGRAM_CLIENT_ID = "6c915f96b07a44c381fb5c6bfe5e40ed"
-var INSTAGRAM_CLIENT_SECRET = "87a6e3ce43434084849a748b25f72d06";
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  // yay!
+});
 
-// Use the InstagramStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and Instagram
-//   profile), and invoke a callback with a user object.
-passport.use(new InstagramStrategy({
-    clientID: INSTAGRAM_CLIENT_ID,
-    clientSecret: INSTAGRAM_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/instagram/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-
-      // To keep the example simple, the user's Instagram profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Instagram account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }
-));
+require('./config/passport')(passport);
 
 // configure Express
 app.configure(function() {
@@ -45,16 +30,19 @@ app.configure(function() {
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.engine('html', require('ejs').renderFile);
+  app.use(express.cookieParser('S3CRE7'));
+  app.use(express.cookieSession({
+  key: 'appSess',
+  secret: 'SUPERsekret'
+}));
+  app.use(express.bodyParser());
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
+
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   app.use(passport.initialize());
-  app.use(passport.session());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
@@ -74,17 +62,24 @@ else {
 
 app.get('/', routes.index);
 
+app.get('/location/:geo', routes.SearchLocation);
+
+app.get('/tag/:search', routes.SearchTags);
+
+app.get('/user', routes.UserId);
+
 // app.get('/', function(req, res){
 //   res.render('index', { user: req.user });
 // });
 
 app.get('/account', ensureAuthenticated, function(req, res){
+  console.log('account page');
   res.render('account', { user: req.user });
 });
 
-// app.get('/login', function(req, res){
-//   res.render('login', { user: req.user });
-// });
+app.get('/login', function(req, res){
+  res.render('login', { user: req.user });
+});
 
 // GET /auth/instagram
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -121,7 +116,7 @@ app.get('/logout', function(req, res){
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  // res.redirect('/login')
+  res.redirect('/login')
 }
 
 module.exports = app;

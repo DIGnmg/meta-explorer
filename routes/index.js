@@ -4,38 +4,59 @@
 var request = require('request');
 var qs = require('querystring')
 var app = require('../app');
+var passport = require('passport');
+var InstagramStrategy = require('passport-instagram').Strategy;
 
 exports.index = function(req, res){
   res.render('index.html', { title: 'Express AngularJS app' });
 };
 
-exports.findAll = function(req, res) {
-	var movie = "Tintin";
+exports.SearchLocation = function(req, res, next) {
+	var geo = req.params.geo,
+ 	clientId = "&distance=1000&client_id=6c915f96b07a44c381fb5c6bfe5e40ed";
+  if (geo) {
+	   var url = "https://api.instagram.com/v1/media/search?";
+	   url + geo + clientId
+	   console.log(url += geo += clientId);
+		 var netflix = request.get({url:url}, function (e, r, body) { console.log('hello');})
+     req.pipe(netflix)
+     netflix.pipe(res)
+	} else {
+		 next();
+	}
 
-	var url = "http://api-public.netflix.com/catalog/titles/autocomplete?v=2.0&output=json&oauth_consumer_key=dqhgmbsxbkhhatpzakb2ea2v&";
-	var params = 'term='+ movie;
-	url + params
-	console.log(url += params);
-	//var netflix = request(url)
-	var netflix = request.get({url:url}, function (e, r, body) { console.log('hello');})
-	req.pipe(netflix)
-	netflix.pipe(res)
 };
-exports.instant = function(req, res, next) {
-	var search = req.params.search;
-	console.log(search);
-	if (search) {
-		var url = "http://api-public.netflix.com/catalog/titles?v=2.0&output=json&term=";
-		var params = 'Tintin';
-		url + search
-		console.log(url += search);
-		oauth = { consumer_key: "dqhgmbsxbkhhatpzakb2ea2v", consumer_secret: "4Ja6UbQAQq"};
-		var netflix = request.get({url:url, oauth:oauth, json:true}, function (e, r, body) {
-			//console.log(body)
-		})
+
+exports.SearchTags = function(req, res, next) {
+	var search = req.params.search,
+ 	tokenid = "access_token="+req.session.passport.user.token;
+ 	if (search) {
+		var url = "https://api.instagram.com/v1/tags/"+search+"/media/recent?";
+	   			//https://api.instagram.com/v1/tags/snow/media/recent?access_token=ACCESS-TOKEN
+		url + tokenid
+		console.log(url += tokenid);
+		var netflix = request.get({url:url}, function (e, r, body) { console.log('hello');})
 		req.pipe(netflix)
 		netflix.pipe(res)
 	} else {
-		next();
+		 next();
 	}
+
+};
+
+exports.UserId = function(req, res, next) {
+	tokenid = "access_token="+req.session.passport.user.token;
+ 	userid = req.session.passport.user.igId;
+ 	if (userid) {
+		var url = "https://api.instagram.com/v1/users/"+userid+"/media/recent?";
+	   			//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
+		url + tokenid
+		console.log(url += tokenid);
+		var netflix = request.get({url:url}, function (e, r, body) { console.log('hello');})
+		req.pipe(netflix)
+		netflix.pipe(res)
+	} else {
+		 next();
+	}
+
 };

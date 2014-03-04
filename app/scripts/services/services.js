@@ -1,7 +1,11 @@
+'use strict';
+
 angular.module('metaexplorer.services', [])
-.service('ColorService', function($http, $q) {
+
+.service('profileService', function($http, $q) {
+
   function readMovieResponse(response) {
-    var list = response.data.autocomplete;
+    var list = response.data;
     console.log(list);
     return list;
   }
@@ -21,13 +25,106 @@ angular.module('metaexplorer.services', [])
       return pets[petId];
     },
     //url = https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&client_id=6c915f96b07a44c381fb5c6bfe5e40ed
-    movie: function (item) {
-      //jsonp(url, config)
+    //https://api.instagram.com/v1/users/4912390
+    search: function () {
       return $http({
         method: 'GET',
-        url: 'http://localhost:8888/Elephont/index.php/movie/'+ movieName
+        url: 'http://localhost:3000/search'
         //params:{term: urlItem }
       }).then(readMovieResponse);
     }
   }
+})
+
+.service('currentLocation', function($q, $window){
+  return {
+    getCurrentLocation: function(){
+      var defer = $q.defer();
+      $window.navigator.geolocation.getCurrentPosition(defer.resolve, defer.reject);
+      return defer.promise;
+      }
+  }
+})
+
+.service('getPhotosFromLocation', function($http, $q){
+  return {
+    get: function (item) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/location/' + item
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    }
+  }
+})
+
+.service('photoTagService', function($http, $q){
+  return {
+    query: function (item) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/tag/' + item
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    },
+    get: function (item) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/tag/' + item
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    }
+  }
+})
+
+.service('userService', function($http, $q){
+  return {
+    query: function (item) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/user/' + item
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    },
+    get: function () {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/user/'
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    }
+  }
+})
+.service('userService', function($http, $q){
+  return {
+    query: function (item) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/user/' + item
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    },
+    get: function () {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/user/'
+          // params:{lat: item.lat,
+          //   lng: item.lng
+          // }
+      })
+    }
+  }
 });
+

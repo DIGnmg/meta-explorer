@@ -18,6 +18,10 @@ angular.module('metaexplorer', [
         templateUrl: 'views/login.html',
         controller: 'MainCtrl'
       })
+      .when('/account', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

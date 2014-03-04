@@ -102,26 +102,6 @@ module.exports = function (grunt) {
 				'<%= yeoman.app %>/scripts/{,*/}*.js'
 			]
 		},
-		coffee: {
-			dist: {
-				files: [{
-					expand: true,
-					cwd: '<%= yeoman.app %>/scripts',
-					src: '{,*/}*.coffee',
-					dest: '.tmp/scripts',
-					ext: '.js'
-				}]
-			},
-			test: {
-				files: [{
-					expand: true,
-					cwd: 'test/spec',
-					src: '{,*/}*.coffee',
-					dest: '.tmp/spec',
-					ext: '.js'
-				}]
-			}
-		},
 		// not used since Uglify task does concat,
 		// but still available if needed
 		/*concat: {
@@ -233,14 +213,7 @@ module.exports = function (grunt) {
 			}
 		},
 		concurrent: {
-			server: [
-				'coffee:dist'
-			],
-			test: [
-				'coffee'
-			],
 			dist: [
-				'coffee',
 				'imagemin',
 				'svgmin'
 				//'htmlmin'
@@ -298,7 +271,6 @@ module.exports = function (grunt) {
 
 		grunt.task.run([
 			'clean:server',
-			'concurrent:server',
 			'express:livereload',
 			'open',
 			'watch'

@@ -52,14 +52,14 @@
     "connect-livereload": "~0.2.0",
     "grunt-open": "~0.2.0",
     "grunt-bower-task": "~0.3.4",
-    "grunt-contrib-less": "~0.8.3"
+    "grunt-contrib-less": "~0.8.3",
+    "mongoose": "*"
   },
   "engines": {
     "node": ">=0.8.0",
     "npm": "1.2.x"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "test": "grunt test"
   }
 }
