@@ -4,14 +4,13 @@
  */
 
 var express = require('express'),
-  mongoose = require('mongoose'),
   routes = require('./routes'),
   http = require('http'),
   path = require('path'),
   passport = require('passport'),
   request = require('request'),
   util = require('util'),
-  InstagramStrategy = require('passport-instagram').Strategy;
+  mongoose = require('mongoose');
 
 var app = express();
 
@@ -35,15 +34,17 @@ app.configure(function() {
   key: 'appSess',
   secret: 'SUPERsekret'
 }));
+
   app.use(express.bodyParser());
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.methodOverride());
 
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
   app.use(passport.initialize());
+  app.use(passport.session());
+
   app.use(app.router);
+
   app.use(express.static(__dirname + '/public'));
 });
 
