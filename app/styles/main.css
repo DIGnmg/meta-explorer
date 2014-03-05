@@ -18,7 +18,7 @@ body {
   text-align: center;
   padding: 0 0 0;
   background-color: #fff;
-  color: #555;
+  color: #053D47;
   margin: 0;
 }
 nav {
@@ -94,12 +94,29 @@ h3 {
   font-weight: normal;
 }
 p {
-  color: #505050;
+  color: #053D47;
   margin: 0 auto;
   max-width: 40rem;
 }
 /* Design
 -------------------------------------------------------------- */
+.mad-lib {
+  font-size: 3rem;
+}
+.image-wrapper {
+  position: relative;
+}
+.image-wrapper .underlay {
+  background-color: #505050;
+  color: #e67f1f;
+  height: 34px;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 1;
+}
 .active {
   color: #2b79b6;
   border-bottom: 1px #2b79b6 solid;
@@ -244,15 +261,7 @@ section.color-stripe:nth-of-type(odd) p {
 }
 /* Hidden Nav
 -------------------------------------------------------------- */
-select {
-  width: 268px;
-  padding: 5px;
-  font-size: 16px;
-  border: 1px solid gray;
-  border-radius: 0;
-  height: 34px;
-  -webkit-appearance: none;
-}
+select,
 input {
   width: 268px;
   padding: 5px;
@@ -261,7 +270,28 @@ input {
   border-radius: 0;
   height: 34px;
   -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  color: inherit;
+  font-weight: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+  display: inline-block;
+  color: #b14943;
+  cursor: pointer;
+  border-bottom: 1px dashed #b14943;
 }
+/* input {
+  width: 268px;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid gray;
+  border-radius: 0;
+  height: 34px;
+  -webkit-appearance: none;
+} */
 .styled-select {
   display: inline;
   width: 240px;

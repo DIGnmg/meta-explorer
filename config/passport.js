@@ -44,10 +44,12 @@ module.exports = function(passport) {
 
 		// asynchronous verification, for effect...
 		console.log(accessToken);
+		console.log(profile);
 		process.nextTick(function () {
 
 		  IGUsers.findOne({igId : profile.id}, function(err, oldUser){
 			  if(oldUser){
+				 console.log(oldUser);
 				userToken = oldUser.token;
 				  done(null,oldUser);
 			  } else{

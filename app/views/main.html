@@ -1,36 +1,41 @@
-<header class="navbar navbar-default navbar-fixed-top">
-    <ul class="nav nav-pills pull-right">
+<header class="">
+    <ul class="nav">
       <li class="active"><a ng-href="#">Home</a></li>
       <li><a href="#/login">Log In</a></li>
       <li><a href="#/account">Account</a></li>
     </ul>
     <h3 class="text-muted">metaexplorer</h3>
-
 </header>
 
 <section class="row">
-  <form ng-submit="megaSearch(item)" >
-    I would like to:
-      <select ng-model="searchView" ng-options="item.name for item in viewOption"></select>
-      <select ng-model="searchType" ng-options="item.name for item in listOption"></select>
-
-    <input data-ng-model="item" name="search" type="text">
-    <button type="submit" id="submit">Search</button>
-  </form>
-
+  <div class="container">
+    <form class="mad-lib" ng-submit="megaSearch(item)" >
+        Hey there McAwesome! Let's
+        <select ng-model="searchView" ng-options="item.name for item in viewOption"></select>
+        for some
+        <select ng-model="searchType" ng-options="item.name for item in listOption"></select>!
+      <input data-ng-model="item" name="search" type="text">
+      <button type="submit" id="submit">Search</button>
+    </form>
+  </div>
+</section>
+<section class="row">
   <div class="container">
     <ul class="grid">
-        <li class="" data-ng-repeat="item in place">
+        <li class="image-wrapper" data-ng-repeat="item in place">
           <img src="{{item.images.low_resolution.url}}"/>
           <a data-ng-click="searchUser(item.id)" href=""><img src="{{item.profile_picture}}"/></a>
-          <span class="">{{item.username}}</span>
-          <span class="">{{item.user.username}}</span>
           <a data-ng-click="searchTag(item.name)" href=""><span class="">{{item.name}}</span></a>
-          <span class="">{{item.user.media_count}}</span>
-          <!-- <span>{{item.created_time | date:'shortDate'}}</span> -->
-<!--           <ul>
-            <li data-ng-repeat="tag in item.tags">{{tag}}</li>
-          </ul> -->
+          <div class="underlay">
+            <span class="">{{item.username}}</span>
+            <span class="">{{item.user.username}}</span>
+            <span class="">{{item.user.media_count}}</span>
+            <!-- <span>{{item.created_time | date:'shortDate'}}</span> -->
+            <!-- <ul>
+              <li data-ng-repeat="tag in item.tags">{{tag}}</li>
+            </ul> -->
+
+          </div>
         </li>
     </ul>
   </div>

@@ -9,7 +9,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       return item;
     }
 
-    $scope.searchType = '';
+    $scope.searchType = 'noun';
     $scope.searchView = '';
     $scope.viewOption = [{name:"search"}, {name:"view"}];
     $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
@@ -20,6 +20,24 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
         $scope.listOption = [{name:"Current location"},{name:"tags"}];
       } else {
         $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
+      }
+    });
+
+    $scope.$watch('searchType', function(newValue, oldValue) {
+      console.log(newValue);
+      if(newValue.name === 'Current location'){
+        currentLocation.getCurrentLocation().then(function(data){
+          var geo = {
+              lat: data.coords.latitude,
+              lng: data.coords.longitude
+          };
+          var path = 'lat=' + geo.lat + '&lng=' + geo.lng
+
+          return path;
+        }).then(getPhotosFromLocation.get).then(function(data){
+           $scope.place = data.data.data;
+           $scope.place.map(fixDate);
+        });
       }
     });
 
@@ -48,10 +66,10 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
         });
       }
 
-      // serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
-      //   $scope.place = data.data.data;
-      //   console.log($scope.place)
-      // });
+      serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
+        $scope.place = data.data.data;
+        console.log($scope.place)
+      });
     }
 
     $scope.locationSearch = function(search){
@@ -67,21 +85,6 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
         console.log($scope.place)
       });
     }
-
-    $scope.searchLocation = function(userID){
-     currentLocation.getCurrentLocation().then(function(data){
-        var geo = {
-            lat: data.coords.latitude,
-            lng: data.coords.longitude
-        };
-        var path = 'lat=' + geo.lat + '&lng=' + geo.lng
-
-        return path;
-      }).then(getPhotosFromLocation.get).then(function(data){
-         $scope.place = data.data.data;
-         $scope.place.map(fixDate);
-      });
-    };
 })
   .controller('UserCtrl', function ($scope, $rootScope, userService) {
     function fixDate (item){
