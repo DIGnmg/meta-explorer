@@ -2,7 +2,7 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService) {
+  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation) {
 
     function fixDate (item){
       item['created_time'] += '000';
@@ -14,6 +14,14 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     $scope.viewOption = [{name:"search"}, {name:"view"}];
     $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
 
+    $scope.$watch('searchView', function(newValue, oldValue) {
+      console.log(newValue);
+      if(newValue.name === 'view'){
+        $scope.listOption = [{name:"Current location"},{name:"tags"}];
+      } else {
+        $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
+      }
+    });
 
     $scope.search = function(item){
       console.log($scope.searchType);
@@ -32,7 +40,29 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     }
 
     $scope.megaSearch = function(search){
+      //searching loction
+      if($scope.searchType.name === 'location'){
+        searchLocation.query(search).then(function(data){
+          $scope.place = data;
+          search = data;
+        });
+      }
+
+      // serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
+      //   $scope.place = data.data.data;
+      //   console.log($scope.place)
+      // });
+    }
+
+    $scope.locationSearch = function(search){
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
+        $scope.place = data.data.data;
+        console.log($scope.place)
+      });
+    }
+
+    $scope.searchTag = function(item){
+      photoTagService.get(item).then(function(data){
         $scope.place = data.data.data;
         console.log($scope.place)
       });
@@ -64,6 +94,5 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       $scope.place = data.data.data;
       $scope.place.map(fixDate);
       $scope.user = data.data.data[0].user
-      $scope.place = data.data.data;
     });
 });

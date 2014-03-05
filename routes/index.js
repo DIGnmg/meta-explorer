@@ -28,7 +28,7 @@ exports.SearchLocation = function(req, res, next) {
 };
 
 exports.SearchTags = function(req, res, next) {
-	var search = req.params.search,
+	var search = req.query.term,
  	tokenid = "access_token="+req.session.passport.user.token;
  	if (search) {
 		var url = "https://api.instagram.com/v1/tags/"+search+"/media/recent?";

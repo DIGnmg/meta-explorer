@@ -66,7 +66,7 @@ app.get('/', routes.index);
 app.get('/location/:geo', routes.SearchLocation);
 
 //route tag searching
-app.get('/tag/:search', routes.SearchTags);
+app.get('/tag', routes.SearchTags);
 
 //routes for user calls
 app.get('/user',ensureAuthenticated, routes.UserId);

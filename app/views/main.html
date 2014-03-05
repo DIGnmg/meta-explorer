@@ -10,7 +10,7 @@
 
 <section class="row">
   <form ng-submit="megaSearch(item)" >
-    Enter text and hit enter:
+    I would like to:
       <select ng-model="searchView" ng-options="item.name for item in viewOption"></select>
       <select ng-model="searchType" ng-options="item.name for item in listOption"></select>
 
@@ -20,7 +20,7 @@
 
   <div class="container">
     <ul class="grid">
-        <li data-animate-scroll class="" data-ng-repeat="item in place">
+        <li class="" data-ng-repeat="item in place">
           <img src="{{item.images.low_resolution.url}}"/>
           <a data-ng-click="searchUser(item.id)" href=""><img src="{{item.profile_picture}}"/></a>
           <span class="">{{item.username}}</span>
