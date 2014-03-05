@@ -3,6 +3,7 @@
 angular.module('metaexplorer', [
   'metaexplorer.controllers',
   'metaexplorer.services',
+  'metaexplorer.directives',
   'ngCookies',
   'ngResource',
   'ngSanitize',

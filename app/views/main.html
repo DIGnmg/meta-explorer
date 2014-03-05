@@ -1,25 +1,41 @@
 <header class="navbar navbar-default navbar-fixed-top">
-  <div class="header">
     <ul class="nav nav-pills pull-right">
       <li class="active"><a ng-href="#">Home</a></li>
       <li><a href="#/login">Log In</a></li>
       <li><a href="#/account">Account</a></li>
     </ul>
     <h3 class="text-muted">metaexplorer</h3>
-  </div>
+
 </header>
+
 <section class="row">
-  <select>
-    <option data-ng-repeat="item in listOption" value="tag">{{item.name}}</option>
-  </select>
-  <input data-ng-model="item" name="search" type="text">
-  <button data-ng-click="search(item)">Search</button>
-  <ul class="list-group">
-      <li class="list-group-item col-md-4" data-ng-repeat="item in place"><img src="{{item.images.thumbnail.url}}"/><p>{{item.caption.text}}</p><p>{{item.created_time | date:'shortDate'}}</p></li>
-  </ul>
+  <form ng-submit="megaSearch(item)" >
+    Enter text and hit enter:
+      <select ng-model="searchView" ng-options="item.name for item in viewOption"></select>
+      <select ng-model="searchType" ng-options="item.name for item in listOption"></select>
+
+    <input data-ng-model="item" name="search" type="text">
+    <button type="submit" id="submit">Search</button>
+  </form>
+
+  <div class="container">
+    <ul class="grid">
+        <li data-animate-scroll class="" data-ng-repeat="item in place">
+          <img src="{{item.images.low_resolution.url}}"/>
+          <a data-ng-click="searchUser(item.id)" href=""><img src="{{item.profile_picture}}"/></a>
+          <span class="">{{item.username}}</span>
+          <span class="">{{item.user.username}}</span>
+          <a data-ng-click="searchTag(item.name)" href=""><span class="">{{item.name}}</span></a>
+          <span class="">{{item.user.media_count}}</span>
+          <!-- <span>{{item.created_time | date:'shortDate'}}</span> -->
+<!--           <ul>
+            <li data-ng-repeat="tag in item.tags">{{tag}}</li>
+          </ul> -->
+        </li>
+    </ul>
+  </div>
 </section>
-<div class="footer">
-  <p>{{place.latitude}}</p>
-  <p>{{place.longitude}}</p>
+
+<footer class="footer">
   <p>you are here!</p>
-</div>
+</footer>

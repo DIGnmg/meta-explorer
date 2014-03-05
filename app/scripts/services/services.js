@@ -36,6 +36,38 @@ angular.module('metaexplorer.services', [])
   }
 })
 
+.service('serviceType', function($http, $q){
+
+  function builder() {
+
+  };
+
+  return {
+    getServiceType: function(type, search){
+      var defer = $q.defer();
+      var buildType=['location','users','tags'];
+
+      //$window.navigator.geolocation.getCurrentPosition(defer.resolve, defer.reject);
+      return defer.promise;
+      }
+  }
+})
+
+.service('serviceType', function($http, $q){
+  return {
+    get: function (view, type, search) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/test/',
+          params:{view: view.name,
+            type: type.name,
+            search: search
+          }
+      })
+    }
+  }
+})
+
 .service('currentLocation', function($q, $window){
   return {
     getCurrentLocation: function(){
@@ -88,41 +120,19 @@ angular.module('metaexplorer.services', [])
     query: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/user/' + item
-          // params:{lat: item.lat,
-          //   lng: item.lng
-          // }
+          url: 'http://localhost:3000/usersearch/',
+          params:{
+            q: item
+          }
       })
     },
-    get: function () {
+    get: function (userID) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/user/'
-          // params:{lat: item.lat,
-          //   lng: item.lng
-          // }
-      })
-    }
-  }
-})
-.service('userService', function($http, $q){
-  return {
-    query: function (item) {
-      return $http({
-          method: 'GET',
-          url: 'http://localhost:3000/user/' + item
-          // params:{lat: item.lat,
-          //   lng: item.lng
-          // }
-      })
-    },
-    get: function () {
-      return $http({
-          method: 'GET',
-          url: 'http://localhost:3000/user/'
-          // params:{lat: item.lat,
-          //   lng: item.lng
-          // }
+          url: 'http://localhost:3000/user/',
+          params:{
+            q: userID
+          }
       })
     }
   }

@@ -2,42 +2,67 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService) {
-    $scope.listOption = [{name:"tags"}, {name:"user"},{name:"location"}];
-    //TODO: make it a form
+  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService) {
+
+    function fixDate (item){
+      item['created_time'] += '000';
+      return item;
+    }
+
+    $scope.searchType = '';
+    $scope.searchView = '';
+    $scope.viewOption = [{name:"search"}, {name:"view"}];
+    $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
+
+
     $scope.search = function(item){
-      photoTagService.query(item).then(function(data){
+      console.log($scope.searchType);
+      userService.query(item).then(function(data){
         $scope.place = data.data.data;
-        var date = parseInt($scope.place[0].created_time);
-        var date = new Date(date);
-        $scope.place[0].created_time = date
-        console.log(data)
+        $scope.place.map(fixDate);
+        console.log($scope.place)
       });
     }
 
-    $scope.place = currentLocation.getCurrentLocation().then(function(data){
-      var geo = {
-          lat: data.coords.latitude,
-          lng: data.coords.longitude
-      };
-      var path = 'lat=' + geo.lat + '&lng=' + geo.lng
+    $scope.searchUser = function(userID){
+      userService.get(userID).then(function(data){
+        $scope.place = data.data.data;
+        console.log($scope.place)
+      });
+    }
 
-      return path;
+    $scope.megaSearch = function(search){
+      serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
+        $scope.place = data.data.data;
+        console.log($scope.place)
+      });
+    }
 
-    }).then(getPhotosFromLocation.get).then(function(data){
-       $scope.place = data.data.data;
-    });
+    $scope.searchLocation = function(userID){
+     currentLocation.getCurrentLocation().then(function(data){
+        var geo = {
+            lat: data.coords.latitude,
+            lng: data.coords.longitude
+        };
+        var path = 'lat=' + geo.lat + '&lng=' + geo.lng
 
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  })
+        return path;
+      }).then(getPhotosFromLocation.get).then(function(data){
+         $scope.place = data.data.data;
+         $scope.place.map(fixDate);
+      });
+    };
+})
   .controller('UserCtrl', function ($scope, $rootScope, userService) {
+    function fixDate (item){
+      item['created_time'] += '000';
+      return item;
+    }
     //TODO: make it a form
     userService.get().then(function(data){
       console.log(data)
+      $scope.place = data.data.data;
+      $scope.place.map(fixDate);
       $scope.user = data.data.data[0].user
       $scope.place = data.data.data;
     });

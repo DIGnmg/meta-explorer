@@ -6,7 +6,7 @@ module.exports = function(passport) {
 	// Setting up client ids
 	var INSTAGRAM_CLIENT_ID = "6c915f96b07a44c381fb5c6bfe5e40ed"
 	var INSTAGRAM_CLIENT_SECRET = "87a6e3ce43434084849a748b25f72d06";
-	
+
 	// Passport session setup.
 	//   To support persistent login sessions, Passport needs to be able to
 	//   serialize users into and deserialize users out of the session.  Typically,
@@ -19,8 +19,16 @@ module.exports = function(passport) {
 	  done(null, user);
 	});
 
+	// passport.deserializeUser(function(obj, done) {
+	//   done(null, obj);
+	// });
+
+	// used to deserialize the user
 	passport.deserializeUser(function(obj, done) {
-	  done(null, obj);
+		console.log(obj);
+		IGUsers.findById(obj._id, function(err, user) {
+			done(err, user);
+		});
 	});
 
 	// Use the InstagramStrategy within Passport.
@@ -41,8 +49,6 @@ module.exports = function(passport) {
 		  IGUsers.findOne({igId : profile.id}, function(err, oldUser){
 			  if(oldUser){
 				userToken = oldUser.token;
-				console.log(userToken);
-				  //accessToken = oldUser.token;
 				  done(null,oldUser);
 			  } else{
 				  var newUser = new IGUsers({

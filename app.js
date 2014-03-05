@@ -62,12 +62,18 @@ else {
 }
 
 app.get('/', routes.index);
-
+//route for location recent media
 app.get('/location/:geo', routes.SearchLocation);
 
+//route tag searching
 app.get('/tag/:search', routes.SearchTags);
 
-app.get('/user', routes.UserId);
+//routes for user calls
+app.get('/user',ensureAuthenticated, routes.UserId);
+app.get('/usersearch',ensureAuthenticated, routes.SearchUser);
+
+// route for swtiching
+app.get('/test',ensureAuthenticated, routes.testCall);
 
 // app.get('/', function(req, res){
 //   res.render('index', { user: req.user });
@@ -117,7 +123,7 @@ app.get('/logout', function(req, res){
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/', routes.index)
 }
 
 module.exports = app;
