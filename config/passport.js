@@ -25,7 +25,7 @@ module.exports = function(passport) {
 
 	// used to deserialize the user
 	passport.deserializeUser(function(obj, done) {
-		console.log(obj);
+		//console.log(obj);
 		IGUsers.findById(obj._id, function(err, user) {
 			done(err, user);
 		});
@@ -43,15 +43,12 @@ module.exports = function(passport) {
 	  function(accessToken, refreshToken, profile, done) {
 
 		// asynchronous verification, for effect...
-		console.log(accessToken);
-		console.log(profile);
 		process.nextTick(function () {
 
 		  IGUsers.findOne({igId : profile.id}, function(err, oldUser){
 			  if(oldUser){
-				 console.log(oldUser);
 				userToken = oldUser.token;
-				  done(null,oldUser);
+				done(null,oldUser);
 			  } else{
 				  var newUser = new IGUsers({
 					  igId: profile.id,
@@ -60,7 +57,6 @@ module.exports = function(passport) {
 					  token: accessToken
 				  }).save(function(err,newUser){
 					  if(err) throw err;
-					  console.log(newUser);
 					  done(null, newUser);
 				  });
 			  }

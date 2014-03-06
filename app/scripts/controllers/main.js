@@ -2,7 +2,7 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation) {
+  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService) {
 
     function fixDate (item){
       item['created_time'] += '000';
@@ -41,22 +41,6 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       }
     });
 
-    $scope.search = function(item){
-      console.log($scope.searchType);
-      userService.query(item).then(function(data){
-        $scope.place = data.data.data;
-        $scope.place.map(fixDate);
-        console.log($scope.place)
-      });
-    }
-
-    $scope.searchUser = function(userID){
-      userService.get(userID).then(function(data){
-        $scope.place = data.data.data;
-        console.log($scope.place)
-      });
-    }
-
     $scope.megaSearch = function(search){
       //searching loction
       if($scope.searchType.name === 'location'){
@@ -66,25 +50,54 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
         });
       }
 
-      serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
-        $scope.place = data.data.data;
+      serviceType.get($scope.searchView, $scope.searchType, search).then(function(response){
+        $scope.place = response.data.data;
+        if($scope.searchType.name === 'tags'){
+          $scope.paging = {
+            nextMin: response.data.pagination.min_tag_id,
+            nextMax: response.data.pagination.next_max_tag_id
+          };
+        } else {
+          $scope.paging = {
+            nextMax: response.data.pagination.next_max_id
+          };
+        }
+        console.log($scope.paging)
         console.log($scope.place)
       });
-    }
+    };
+
+    // Paging
+    $scope.nextPage = function(){
+      pagingService.get($scope.searchType, $scope.item, $scope.paging).then(function(response){
+        $scope.place = response.data.data;
+        console.log($scope.place)
+      });
+    };
+
 
     $scope.locationSearch = function(search){
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
         $scope.place = data.data.data;
         console.log($scope.place)
       });
-    }
+    };
+
+    // Search Funtions for links
+    $scope.searchUser = function(userID){
+      userService.get(userID).then(function(response){
+        $scope.place = response.data.data;
+        console.log($scope.place)
+        console.log(response)
+      });
+    };
 
     $scope.searchTag = function(item){
       photoTagService.get(item).then(function(data){
         $scope.place = data.data.data;
         console.log($scope.place)
       });
-    }
+    };
 })
   .controller('UserCtrl', function ($scope, $rootScope, userService) {
     function fixDate (item){

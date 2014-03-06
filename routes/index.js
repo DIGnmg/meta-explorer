@@ -113,5 +113,25 @@ exports.testCall = function(req, res, next) {
 	} else {
 		 next();
 	}
+};
+
+exports.Paging = function(req, res, next) {
+	tokenid = "&access_token="+req.session.passport.user.token;
+ 	var search = req.query.q,
+ 	min_id = req.query.min,
+ 	max_id = req.query.max,
+ 	type = req.query.type;
+
+ 	if (search) {
+		url = "https://api.instagram.com/v1/" + type + "/" + search +"/media/recent?" + "max_id=" + max_id + "&min_id=" +min_id;
+		//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
+		url + tokenid
+		console.log(url += tokenid);
+		var netflix = request.get({url:url}, function (e, r, body) { console.log('user images');})
+		req.pipe(netflix)
+		netflix.pipe(res)
+	} else {
+		 next();
+	}
 
 };

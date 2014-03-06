@@ -131,21 +131,15 @@ angular.module('metaexplorer.services', [])
 
 .service('pagingService', function($http, $q){
   return {
-    query: function (item) {
+    get: function (type, search, pagingIDs) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/usersearch/',
+          url: 'http://localhost:3000/paging/',
           params:{
-            q: item
-          }
-      })
-    },
-    get: function (userID) {
-      return $http({
-          method: 'GET',
-          url: 'http://localhost:3000/user/',
-          params:{
-            q: userID
+            type: type.name,
+            q: search,
+            max: pagingIDs.nextMax,
+            min: pagingIDs.nextMin
           }
       })
     }

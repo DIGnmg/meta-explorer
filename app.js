@@ -55,6 +55,7 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (env !== 'production') {
   // development only
   console.log('development');
+  console.log(__dirname);
   app.set('views', __dirname + '/app');
   app.use(express.static(path.join(__dirname, 'app')));
   app.use(express.errorHandler());
@@ -63,7 +64,8 @@ else {
   // production
   console.log('production');
   app.set('views', __dirname + '/dist');
-  app.use(express.static(path.join(__dirname, 'dist')));
+  //app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.static(__dirname + 'dist'));
 }
 
 app.get('/', routes.index);
@@ -79,6 +81,9 @@ app.get('/usersearch',ensureAuthenticated, routes.SearchUser);
 
 // route for swtiching
 app.get('/test',ensureAuthenticated, routes.testCall);
+
+// route for swtiching
+app.get('/paging',ensureAuthenticated, routes.Paging);
 
 // app.get('/', function(req, res){
 //   res.render('index', { user: req.user });
