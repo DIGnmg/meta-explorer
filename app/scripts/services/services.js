@@ -144,5 +144,33 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
+})
+
+.service('likeService', function($http, $q){
+  return {
+    post: function (mediaId) {
+      return $http({
+          method: 'POST',
+          url: 'http://localhost:3000/liking/',
+          params:{
+            mediaId: mediaId
+          }
+      })
+    }
+  }
+})
+
+.service('loginService', function($http, $q){
+  return {
+    get: function () {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/liking/',
+          params:{
+            mediaId: mediaId
+          }
+      })
+    }
+  }
 });
 

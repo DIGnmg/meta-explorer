@@ -64,8 +64,7 @@ else {
   // production
   console.log('production');
   app.set('views', __dirname + '/dist');
-  //app.use(express.static(path.join(__dirname, 'dist')));
-  app.use(express.static(__dirname + 'dist'));
+  app.use(express.static(path.join(__dirname, 'dist')));
 }
 
 app.get('/', routes.index);
@@ -76,14 +75,17 @@ app.get('/location/:geo', routes.SearchLocation);
 app.get('/tag', routes.SearchTags);
 
 //routes for user calls
-app.get('/user',ensureAuthenticated, routes.UserId);
-app.get('/usersearch',ensureAuthenticated, routes.SearchUser);
+app.get('/user',ensureAuthenticated, routes.getUser);
+app.get('/usersearch',ensureAuthenticated, routes.findUserId);
 
 // route for swtiching
 app.get('/test',ensureAuthenticated, routes.testCall);
 
 // route for swtiching
 app.get('/paging',ensureAuthenticated, routes.Paging);
+
+// route for liking
+app.post('/liking',ensureAuthenticated, routes.LikeMedia);
 
 // app.get('/', function(req, res){
 //   res.render('index', { user: req.user });

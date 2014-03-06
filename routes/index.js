@@ -18,9 +18,9 @@ exports.SearchLocation = function(req, res, next) {
 	   var url = "https://api.instagram.com/v1/media/search?";
 	   url + geo + clientId
 	   console.log(url += geo += clientId);
-		 var netflix = request.get({url:url}, function (e, r, body) { console.log('location');})
-     req.pipe(netflix)
-     netflix.pipe(res)
+		 var gram = request.get({url:url}, function (e, r, body) { console.log('location');})
+     req.pipe(gram)
+     gram.pipe(res)
 	} else {
 		 next();
 	}
@@ -35,18 +35,18 @@ exports.SearchTags = function(req, res, next) {
 	   			//https://api.instagram.com/v1/tags/snow/media/recent?access_token=ACCESS-TOKEN
 		url + tokenid
 		console.log(url += tokenid);
-		var netflix = request.get({url:url}, function (e, r, body) { console.log('tags');})
-		req.pipe(netflix)
-		netflix.pipe(res)
+		var gram = request.get({url:url}, function (e, r, body) { console.log('tags');})
+		req.pipe(gram)
+		gram.pipe(res)
 	} else {
 		 next();
 	}
 
 };
 
-exports.UserId = function(req, res, next) {
-	tokenid = "access_token="+req.session.passport.user.token;
- 	userid  = req.query.q;
+exports.getUser = function(req, res, next) {
+	var tokenid = "access_token="+req.session.passport.user.token,
+ 	userid = req.query.q;
 
  	if(!userid){
  		userid = req.session.passport.user.igId;
@@ -57,28 +57,28 @@ exports.UserId = function(req, res, next) {
 	   			//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
 		url + tokenid
 		console.log(url += tokenid);
-		var netflix = request.get({url:url}, function (e, r, body) { console.log('user id');})
-		req.pipe(netflix)
-		netflix.pipe(res)
+		var gram = request.get({url:url}, function (e, r, body) { console.log('user id');})
+		req.pipe(gram)
+		gram.pipe(res)
 	} else {
 		 next();
 	}
 
 };
 
-exports.SearchUser = function(req, res, next) {
-	tokenid = "&access_token="+req.session.passport.user.token;
+exports.findUserId = function(req, res, next) {
 	console.log(req.query.q)
- 	var search = req.query.q;
+ 	var search = req.query.q,
+ 	tokenid = "&access_token="+req.session.passport.user.token;
 
  	if (search) {
 		var url = "https://api.instagram.com/v1/users/search?q="+search;
 	   			//https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN
 		url + tokenid
 		console.log(url += tokenid);
-		var netflix = request.get({url:url}, function (e, r, body) { console.log('user images');})
-		req.pipe(netflix)
-		netflix.pipe(res)
+		var gram = request.get({url:url}, function (e, r, body) { console.log('user images');})
+		req.pipe(gram)
+		gram.pipe(res)
 	} else {
 		 next();
 	}
@@ -107,31 +107,50 @@ exports.testCall = function(req, res, next) {
 	   			//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
 		url + tokenid
 		console.log(url += tokenid);
-		var netflix = request.get({url:url}, function (e, r, body) { console.log('hello');})
-		req.pipe(netflix)
-		netflix.pipe(res)
+		var gram = request.get({url:url}, function (e, r, body) { console.log('hello');})
+		req.pipe(gram)
+		gram.pipe(res)
 	} else {
 		 next();
 	}
 };
 
 exports.Paging = function(req, res, next) {
-	tokenid = "&access_token="+req.session.passport.user.token;
  	var search = req.query.q,
  	min_id = req.query.min,
  	max_id = req.query.max,
- 	type = req.query.type;
+ 	type = req.query.type,
+ 	tokenid = "&access_token="+req.session.passport.user.token;
 
  	if (search) {
-		url = "https://api.instagram.com/v1/" + type + "/" + search +"/media/recent?" + "max_id=" + max_id + "&min_id=" +min_id;
+		url = "https://api.instagram.com/v1/" + type + "/" + search +"/media/recent?" + "max_id=" + max_id;
 		//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
 		url + tokenid
 		console.log(url += tokenid);
-		var netflix = request.get({url:url}, function (e, r, body) { console.log('user images');})
-		req.pipe(netflix)
-		netflix.pipe(res)
+		var gram = request.get({url:url}, function (e, r, body) { console.log('user images');})
+		req.pipe(gram)
+		gram.pipe(res)
 	} else {
 		 next();
+	}
+
+};
+
+exports.LikeMedia = function(req, res, next){
+
+	var mediaId = req.query.mediaId,
+	tokenid = "?access_token="+req.session.passport.user.token;
+
+	if(mediaId){
+		url = "https://api.instagram.com/v1/media/"+mediaId+"/likes";
+		//https://api.instagram.com/v1/media/670411170601024603_701747094/likes?access_token=4912390.1fb234f.85290656c8fd450fb7cd8f5f35740611
+		url + tokenid
+		console.log(url += tokenid);
+		var gram = request.post({url:url}, function (e, r, body) { console.log('posting like');})
+		req.pipe(gram)
+		gram.pipe(res)
+	}else{
+		next();
 	}
 
 };

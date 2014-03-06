@@ -38,7 +38,8 @@ module.exports = function(passport) {
 	passport.use(new InstagramStrategy({
 		clientID: INSTAGRAM_CLIENT_ID,
 		clientSecret: INSTAGRAM_CLIENT_SECRET,
-		callbackURL: "http://localhost:3000/auth/instagram/callback"
+		callbackURL: "http://localhost:3000/auth/instagram/callback",
+		scope: "likes"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 

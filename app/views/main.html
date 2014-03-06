@@ -27,18 +27,35 @@
           <a data-ng-click="searchUser(item.id)" href=""><img src="{{item.profile_picture}}"/></a>
           <a data-ng-click="searchTag(item.name)" href=""><span class="">{{item.name}}</span></a>
           <div class="underlay">
+            <a data-ng-click="likeMedia(item.id)">like{{item.likes.count}}</a>
             <span class="">{{item.username}}</span>
             <span class="">{{item.user.username}}</span>
             <span class="">{{item.user.media_count}}</span>
-            <!-- <span>{{item.created_time | date:'shortDate'}}</span> -->
-            <!-- <ul>
-              <li data-ng-repeat="tag in item.tags">{{tag}}</li>
-            </ul> -->
-
           </div>
         </li>
     </ul>
   </div>
+</section>
+
+<secion>
+  <div id="picList">
+    <div class="item">
+      <div class="picture" style="background-image:url(http://d13yacurqjgara.cloudfront.net/users/14521/screenshots/1451891/thoughtspot_website_1x.png);">
+        <div class="gradient"><a class="link" href="http://dribbble.com/shots/1451891-New-website-live"></a></div>
+        <div class="underlay">
+          <a class="i round" href="http://dribbble.com/jonathanmoreira"><img src="http://d13yacurqjgara.cloudfront.net/users/14521/avatars/normal/avatar_drib-03.jpg?1367819967"></a>
+          <div class="shotStats">
+            <span class="name"><a href="http://dribbble.com/jonathanmoreira">Jonathan Moreira</a></span>
+            <span class="likes">336 Likes · 38 comments</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="animate fadeInUp item">    <div class="picture" style="background-image:url(http://d13yacurqjgara.cloudfront.net/users/14521/screenshots/1451891/thoughtspot_website_1x.png);">       <div class="gradient"><a class="link" href="http://dribbble.com/shots/1451891-New-website-live"></a></div>        <div class="underlay">            <a class="i round" href="http://dribbble.com/jonathanmoreira"><img src="http://d13yacurqjgara.cloudfront.net/users/14521/avatars/normal/avatar_drib-03.jpg?1367819967"></a>           <div class="shotStats">              <span class="name"><a href="http://dribbble.com/jonathanmoreira">Jonathan Moreira</a></span>              <span class="likes">336 Likes · 38 comments</span>           </div>        </div>    </div></div>
 </section>
 
 <footer class="footer">

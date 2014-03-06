@@ -2,7 +2,7 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService) {
+  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService) {
 
     function fixDate (item){
       item['created_time'] += '000';
@@ -41,6 +41,21 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       }
     });
 
+    $scope.getPageId = function (page) {
+      if($scope.searchType.name === 'tags'){
+        $scope.paging = {
+          nextMin: page.min_tag_id,
+          nextMax: page.next_max_tag_id
+        };
+      } else {
+        $scope.paging = {
+          nextMax: page.next_max_id
+        };
+      }
+      return;
+    };
+
+
     $scope.megaSearch = function(search){
       //searching loction
       if($scope.searchType.name === 'location'){
@@ -52,17 +67,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(response){
         $scope.place = response.data.data;
-        if($scope.searchType.name === 'tags'){
-          $scope.paging = {
-            nextMin: response.data.pagination.min_tag_id,
-            nextMax: response.data.pagination.next_max_tag_id
-          };
-        } else {
-          $scope.paging = {
-            nextMax: response.data.pagination.next_max_id
-          };
-        }
-        console.log($scope.paging)
+        $scope.getPageId(response.data.pagination);
         console.log($scope.place)
       });
     };
@@ -70,8 +75,11 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     // Paging
     $scope.nextPage = function(){
       pagingService.get($scope.searchType, $scope.item, $scope.paging).then(function(response){
-        $scope.place = response.data.data;
-        console.log($scope.place)
+        $scope.nextpage = response.data.data;
+        var tempArray = [];
+        tempArray = $scope.place.concat($scope.nextpage);
+        $scope.place = tempArray;
+        $scope.getPageId(response.data.pagination);
       });
     };
 
@@ -79,7 +87,6 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     $scope.locationSearch = function(search){
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
         $scope.place = data.data.data;
-        console.log($scope.place)
       });
     };
 
@@ -87,19 +94,24 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     $scope.searchUser = function(userID){
       userService.get(userID).then(function(response){
         $scope.place = response.data.data;
-        console.log($scope.place)
-        console.log(response)
+        $scope.getPageId(response.data.pagination);
       });
     };
 
     $scope.searchTag = function(item){
       photoTagService.get(item).then(function(data){
         $scope.place = data.data.data;
-        console.log($scope.place)
+      });
+    };
+
+    $scope.likeMedia = function(item){
+      likeService.post(item).then(function(data){
+        console.log("Liked");
       });
     };
 })
-  .controller('UserCtrl', function ($scope, $rootScope, userService) {
+
+.controller('UserCtrl', function ($scope, $rootScope, userService) {
     function fixDate (item){
       item['created_time'] += '000';
       return item;
