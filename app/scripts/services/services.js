@@ -18,23 +18,6 @@ angular.module('metaexplorer.services', [])
 })
 
 .service('serviceType', function($http, $q){
-
-  function builder() {
-
-  };
-
-  return {
-    getServiceType: function(type, search){
-      var defer = $q.defer();
-      var buildType=['location','users','tags'];
-
-      //$window.navigator.geolocation.getCurrentPosition(defer.resolve, defer.reject);
-      return defer.promise;
-      }
-  }
-})
-
-.service('serviceType', function($http, $q){
   return {
     get: function (view, type, search) {
       return $http({
@@ -124,6 +107,29 @@ angular.module('metaexplorer.services', [])
 })
 
 .service('userService', function($http, $q){
+  return {
+    query: function (item) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/usersearch/',
+          params:{
+            q: item
+          }
+      })
+    },
+    get: function (userID) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/user/',
+          params:{
+            q: userID
+          }
+      })
+    }
+  }
+})
+
+.service('pagingService', function($http, $q){
   return {
     query: function (item) {
       return $http({

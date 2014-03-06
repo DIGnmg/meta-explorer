@@ -47,18 +47,21 @@ app.configure(function() {
 
   app.use(app.router);
 
-  app.use(express.static(__dirname + '/public'));
+  //app.use(express.static(__dirname + '/public'));
 });
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 if (env !== 'production') {
   // development only
+  console.log('development');
   app.set('views', __dirname + '/app');
   app.use(express.static(path.join(__dirname, 'app')));
   app.use(express.errorHandler());
 }
 else {
   // production
+  console.log('production');
   app.set('views', __dirname + '/dist');
   app.use(express.static(path.join(__dirname, 'dist')));
 }
