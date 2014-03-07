@@ -50,7 +50,7 @@ app.configure(function() {
   //app.use(express.static(__dirname + '/public'));
 });
 
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 if (env !== 'production') {
   // development only

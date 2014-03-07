@@ -295,11 +295,11 @@ module.exports = function (grunt) {
 		//'bower',
 		'copy',
 		'cdnify',
-		'ngmin',
+		//'ngmin',
 		'cssmin',
 		'uglify',
 		'rev',
-		'usemin'
+		//'usemin'
 	]);
 
 	grunt.registerTask('default', [
