@@ -24,6 +24,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     $scope.paging = false;
     $scope.searchType = 'tags';
 
+    //Major api call to insatagram
     $scope.megaSearch = function(search){
       $scope.search = search;
       //searching loction
@@ -49,12 +50,14 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       });
     };
 
+    //Search location - not working
     $scope.locationSearch = function(search){
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
         $scope.place = data.data.data;
       });
     };
 
+    // Get the Current Location and get images!
     $scope.currentLocation = function(){
      currentLocation.getCurrentLocation().then(function(data){
         var geo = {
@@ -71,20 +74,21 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     };
 
 
-    // Search Funtions for User and Tags
+    // Search Funtions for User
     $scope.searchUser = function(userID){
       userService.get(userID).then(function(response){
         $scope.place = response.data.data;
         $scope.getPageId(response.data.pagination);
       });
     };
-
+    // and Tags
     $scope.searchTag = function(item){
       photoTagService.get(item).then(function(data){
         $scope.place = data.data.data;
       });
     };
 
+    //Function to like stuff
     $scope.likeMedia = function(item){
       likeService.post(item).then(function(data){
         console.log("Liked");
@@ -92,12 +96,12 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       });
     };
 
-    // Log user in and out
+    // Log user in
     $scope.user = loginService.logIn().then(function(res){
         $scope.locksmith = res.data.user;
         console.log($scope.locksmith);
     });
-
+    // and out
     $scope.logOut = function(item){
       loginService.logout().then(function(res){
         $scope.locksmith = res.data.user;

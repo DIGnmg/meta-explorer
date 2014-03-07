@@ -9,7 +9,7 @@ angular.module('metaexplorer.services', [])
     search: function () {
       return $http({
         method: 'GET',
-        url: 'http://localhost:3000/search'
+        url: 'http://meta-explorer.herokuapp.com/search'
         //params:{term: urlItem }
       }).then(readMovieResponse);
     }
@@ -21,7 +21,7 @@ angular.module('metaexplorer.services', [])
     query: function (type, search) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/listing/',
+          url: 'http://meta-explorer.herokuapp.com/listing/',
           params:{
             type: type,
             q: search
@@ -36,7 +36,7 @@ angular.module('metaexplorer.services', [])
     get: function (type, userID) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/get/',
+          url: 'http://meta-explorer.herokuapp.com/get/',
           params:{
             type: type,
             q: userID
@@ -51,7 +51,7 @@ angular.module('metaexplorer.services', [])
     get: function (view, type, search) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/test/',
+          url: 'http://meta-explorer.herokuapp.com/test/',
           params:{
             type: type,
             search: search
@@ -103,7 +103,7 @@ angular.module('metaexplorer.services', [])
     get: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/location/' + item
+          url: 'http://meta-explorer.herokuapp.com/location/' + item
           // params:{lat: item.lat,
           //   lng: item.lng
           // }
@@ -117,7 +117,7 @@ angular.module('metaexplorer.services', [])
     query: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/tag/' + item
+          url: 'http://meta-explorer.herokuapp.com/tag/' + item
           // params:{lat: item.lat,
           //   lng: item.lng
           // }
@@ -126,7 +126,7 @@ angular.module('metaexplorer.services', [])
     get: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/tag/',
+          url: 'http://meta-explorer.herokuapp.com/tag/',
           params:{
             term: item
           }
@@ -140,7 +140,7 @@ angular.module('metaexplorer.services', [])
     query: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/usersearch/',
+          url: 'http://meta-explorer.herokuapp.com/usersearch/',
           params:{
             q: item
           }
@@ -149,7 +149,7 @@ angular.module('metaexplorer.services', [])
     get: function (type, userID) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/get/',
+          url: 'http://meta-explorer.herokuapp.com/get/',
           params:{
             type: type,
             q: userID
@@ -174,7 +174,7 @@ angular.module('metaexplorer.services', [])
     get: function (pageOpt) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/paging/',
+          url: 'http://meta-explorer.herokuapp.com/paging/',
           params:{
             flag: pageOpt.flag,
             q: pageOpt.search,
@@ -196,7 +196,7 @@ angular.module('metaexplorer.services', [])
     post: function (mediaId) {
       return $http({
           method: 'POST',
-          url: 'http://localhost:3000/liking/',
+          url: 'http://meta-explorer.herokuapp.com/liking/',
           params:{
             mediaId: mediaId
           }
@@ -210,13 +210,13 @@ angular.module('metaexplorer.services', [])
     logIn: function () {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/login'
+          url: 'http://meta-explorer.herokuapp.com/login'
       })
     },
     logout: function () {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/logout'
+          url: 'http://meta-explorer.herokuapp.com/logout'
       })
     }
   }
