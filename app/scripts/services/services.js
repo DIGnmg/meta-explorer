@@ -9,7 +9,7 @@ angular.module('metaexplorer.services', [])
     search: function () {
       return $http({
         method: 'GET',
-        url: 'http://meta-explorer.herokuapp.com/search'
+        url: 'http://localhost:3000/search'
         //params:{term: urlItem }
       }).then(readMovieResponse);
     }
@@ -21,7 +21,7 @@ angular.module('metaexplorer.services', [])
     query: function (type, search) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/listing/',
+          url: 'http://localhost:3000/listing/',
           params:{
             type: type,
             q: search
@@ -36,7 +36,7 @@ angular.module('metaexplorer.services', [])
     get: function (type, userID) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/get/',
+          url: 'http://localhost:3000/get/',
           params:{
             type: type,
             q: userID
@@ -51,7 +51,7 @@ angular.module('metaexplorer.services', [])
     get: function (view, type, search) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/test/',
+          url: 'http://localhost:3000/test/',
           params:{
             type: type,
             search: search
@@ -103,7 +103,7 @@ angular.module('metaexplorer.services', [])
     get: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/location/' + item
+          url: 'http://localhost:3000/location/' + item
           // params:{lat: item.lat,
           //   lng: item.lng
           // }
@@ -117,7 +117,7 @@ angular.module('metaexplorer.services', [])
     query: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/tag/' + item
+          url: 'http://localhost:3000/tag/' + item
           // params:{lat: item.lat,
           //   lng: item.lng
           // }
@@ -126,7 +126,7 @@ angular.module('metaexplorer.services', [])
     get: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/tag/',
+          url: 'http://localhost:3000/tag/',
           params:{
             term: item
           }
@@ -140,7 +140,7 @@ angular.module('metaexplorer.services', [])
     query: function (item) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/usersearch/',
+          url: 'http://localhost:3000/usersearch/',
           params:{
             q: item
           }
@@ -149,7 +149,7 @@ angular.module('metaexplorer.services', [])
     get: function (type, userID) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/get/',
+          url: 'http://localhost:3000/get/',
           params:{
             type: type,
             q: userID
@@ -167,14 +167,13 @@ angular.module('metaexplorer.services', [])
         search: search || '',
         nextMax: page.next_max_tag_id || page.next_max_id
       }
-      console.log(pageOpt);
       return pageOpt;
     }
   return {
     get: function (pageOpt) {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/paging/',
+          url: 'http://localhost:3000/paging/',
           params:{
             flag: pageOpt.flag,
             q: pageOpt.search,
@@ -196,7 +195,7 @@ angular.module('metaexplorer.services', [])
     post: function (mediaId) {
       return $http({
           method: 'POST',
-          url: 'http://meta-explorer.herokuapp.com/liking/',
+          url: 'http://localhost:3000/liking/',
           params:{
             mediaId: mediaId
           }
@@ -210,13 +209,13 @@ angular.module('metaexplorer.services', [])
     logIn: function () {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/login'
+          url: 'http://localhost:3000/login'
       })
     },
     logout: function () {
       return $http({
           method: 'GET',
-          url: 'http://meta-explorer.herokuapp.com/logout'
+          url: 'http://localhost:3000/logout'
       })
     }
   }

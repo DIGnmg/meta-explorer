@@ -91,7 +91,6 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     //Function to like stuff
     $scope.likeMedia = function(item){
       likeService.post(item).then(function(data){
-        console.log("Liked");
         $scope.megaSearch($scope.search);
       });
     };
@@ -99,7 +98,6 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     // Log user in
     $scope.user = loginService.logIn().then(function(res){
         $scope.locksmith = res.data.user;
-        console.log($scope.locksmith);
     });
     // and out
     $scope.logOut = function(item){
@@ -117,7 +115,6 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     }
     //TODO: make it a form
     userService.get().then(function(data){
-      console.log(data)
       $scope.place = data.data.data;
       $scope.place.map(fixDate);
       $scope.user = data.data.data[0].user

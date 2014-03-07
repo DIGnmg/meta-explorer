@@ -10,7 +10,6 @@ angular.module('metaexplorer.directives', [])
 		icon = $('span.icon-menu'),
 		open = false;
 		trigger.on('click', function(){
-			console.log("clicked");
 			if( !open ) {
 				$element.addClass('menu-open');
 				open = true;
@@ -151,8 +150,6 @@ angular.module('metaexplorer.directives', [])
 					element.on('input', function () {
 						var searched = element.val();
 						scope.loading = true;
-						console.log(scope);
-						console.log(scope.searchType);
 						listService.query(scope.searchType, searched).then(function(addressList){
 							scope.loading = false;
 							menuScope.myaddress = addressList.data.data;
@@ -163,16 +160,6 @@ angular.module('metaexplorer.directives', [])
 								resetMenu();
 							}
 						});
-						// searchLocation.query(searched).then(function (addressList) {
-						// 	menuScope.myaddress = addressList;
-						// 	console.log(menuScope.myaddress)
-						// 	if (menuScope.myaddress.length > 0){
-						// 		setInputWidth();
-						// 		menu.removeClass("hidden");
-						// 	} else {
-						// 		resetMenu();
-						// 	}
-						// });
 					});
 
 					element.on('blur', function(event){

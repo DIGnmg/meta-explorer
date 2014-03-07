@@ -35,11 +35,10 @@ module.exports = function(passport) {
 	//   Strategies in Passport require a `verify` function, which accept
 	//   credentials (in this case, an accessToken, refreshToken, and Instagram
 	//   profile), and invoke a callback with a user object.
-	//	http://localhost:3000/auth/instagram/callback
 	passport.use(new InstagramStrategy({
 		clientID: INSTAGRAM_CLIENT_ID,
 		clientSecret: INSTAGRAM_CLIENT_SECRET,
-		callbackURL: "http://meta-explorer.herokuapp.com/auth/instagram/callback",
+		callbackURL: "http://localhost:3000/auth/instagram/callback",
 		scope: "likes"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
