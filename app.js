@@ -50,7 +50,7 @@ app.configure(function() {
   //app.use(express.static(__dirname + '/public'));
 });
 
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 if (env !== 'production') {
   // development only
@@ -71,11 +71,15 @@ app.get('/', routes.index);
 //route for location recent media
 app.get('/location/:geo', routes.SearchLocation);
 
-//route tag searching
-app.get('/tag', routes.SearchTags);
+//route for getting tags
+app.get('/tag', routes.getTags);
 
-//routes for user calls
-app.get('/user',ensureAuthenticated, routes.getUser);
+//route for searching Listing
+app.get('/listing', ensureAuthenticated, routes.SearchListing);
+
+//routes for getting users
+app.get('/get',ensureAuthenticated, routes.getItem);
+//route for searching users
 app.get('/usersearch',ensureAuthenticated, routes.findUserId);
 
 // route for swtiching
@@ -87,9 +91,6 @@ app.get('/paging',ensureAuthenticated, routes.Paging);
 // route for liking
 app.post('/liking',ensureAuthenticated, routes.LikeMedia);
 
-// app.get('/', function(req, res){
-//   res.render('index', { user: req.user });
-// });
 
 app.get('/account', ensureAuthenticated, function(req, res){
   console.log('account page');
@@ -98,23 +99,13 @@ app.get('/account', ensureAuthenticated, function(req, res){
 
 app.get('/login', routes.UserLog);
 
-// GET /auth/instagram
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Instagram authentication will involve
-//   redirecting the user to instagram.com.  After authorization, Instagram
-//   will redirect the user back to this application at /auth/instagram/callback
+
 app.get('/auth/instagram',
   passport.authenticate('instagram'),
   function(req, res){
-    // The request will be redirected to Instagram for authentication, so this
-    // function will not be called.
+
   });
 
-// GET /auth/instagram/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
 app.get('/auth/instagram/callback',
   passport.authenticate('instagram', { failureRedirect: '/login' }),
   function(req, res) {
@@ -126,11 +117,6 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.  Otherwise, the user will be redirected to the
-//   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/', routes.index)

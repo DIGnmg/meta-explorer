@@ -1,14 +1,20 @@
-<header class="">
-  <nav data-menu-animation id="menu" class="menu">
-    <div class="menu-trigger"><span class="icon icon-menu"><i class="fa fa-bars"></i></span><a class="label"><i class="fa fa-bars"></i>Menu</a></div>
-    <ul>
-      <li class="active"><a ng-href="#">Home</a></li>
-      <li><a href="#/login">Log In</a></li>
-      <li><a data-ng-click="logOut()" href="#">Log Out</a></li>
-      <li><a href="#/account">Account</a></li>
-    </ul>
-  </nav>
-    <h3 class="text-muted">metaexplorer</h3>
+<nav data-menu-animation id="menu" class="menu">
+  <div class="menu-trigger">
+    <span class="icon icon-menu"><i class="fa fa-bars"></i></span>
+  </div>
+  <ul>
+    <li class="active"><a ng-href="#">Home</a></li>
+    <li><a href="#/login">Log In</a></li>
+    <li><a data-ng-click="logOut()" href="#">Log Out</a></li>
+    <li><a href="#/account">Account</a></li>
+  </ul>
+</nav>
+</div>
+<header class="container">
+  <div class="row clearfix">
+    <div class="column full">
+      <h3 class="text-muted">metaexplorer</h3>
+  </div>
 </header>
 
 <section data-ng-show="!locksmith" class="row">
@@ -17,41 +23,66 @@
   </div>
 </section>
 
-<section data-ng-show="locksmith" class="row">
-  <div class="container">
-    <form class="mad-lib" ng-submit="megaSearch(item)" >
-        <button type="submit" id="submit">Search</button>
-        <button type="submit" id="submit">View</button>
-        <button type="submit" id="submit">Users</button>
-        <button type="submit" id="submit">Tags</button>
-        <button type="submit" id="submit">Locations</button>
-        <select ng-model="searchView" ng-options="item.name for item in viewOption"></select>
-        <select ng-model="searchType" ng-options="item.name for item in listOption"></select>!
-      <input data-ng-model="item" name="search" type="text">
-      <button type="submit" id="submit">Search</button>
-    </form>
+<section class="body-style" data-ng-show="locksmith" class="container">
+  <div data-ng-show="locksmith" class="container">
+      <form class="mad-lib" ng-submit="megaSearch(item)">
+        <div class="row clearfix">
+          <div class="column full">
+            <div class="row clearfix">
+              <div class="column full search-group">
+                <input data-search-field="" class="" placeholder="Search:{{searchType}}" data-ng-model="item" name="search" type="search">
+                <button class="search-button" type="submit" id="submit">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="column full type-bar bar-open">
+            <button class="round-icon" data-type-flip="users" type="button"><i class="fa fa-users"></i></button>
+            <button class="round-icon" data-type-flip="tags" type="button"><i class="fa fa-tags"></i></button>
+            <button class="round-icon" data-type-flip="location" type="button"><i class="fa fa-location-arrow"></i></button>
+          </div>
+        </div>
+      </form>
   </div>
 </section>
-<section class="row">
-  <div class="container">
-    <span data-ng-show="loading" class="">Loading...</span>
-    <ul class="grid">
-        <li class="image-wrapper" data-ng-repeat="item in place">
+
+<section class="container">
+  <div class="row clearfix">
+    <div class="column third" data-ng-repeat="item in place">
+      <span data-ng-show="loading" class="">Loading...</span>
+      <ul class="grid">
+        <li class="image-wrapper">
+          <div>
           <img src="{{item.images.low_resolution.url}}"/>
-          <a data-ng-click="searchUser(item.id)" href=""><img src="{{item.profile_picture}}"/></a>
-          <a data-ng-click="searchTag(item.name)" href=""><span class="">{{item.name}}</span></a>
-          <div class="underlay">
-            <a data-ng-click="likeMedia(item.id)"><i class="fa fa-heart"></i>{{item.likes.count}}</a>
-            <span class="">{{item.username}}</span>
-            <span class="">{{item.user.username}}</span>
-            <span class="">{{item.user.media_count}}</span>
           </div>
+          <div class="gradient">
+          </div>
+            <a data-ng-click="searchUser(item.id)" href=""><img src="{{item.profile_picture}}"/></a>
+            <a data-ng-click="searchTag(item.name)" href=""><span class="">{{item.name}}</span></a>
+            <div class="underlay">
+              <!-- <span class="">{{item.username}}</span>
+              <span class="">{{item.user.username}}</span>
+              <span class="">{{item.user.media_count}}</span> -->
+              <div class="clearfix like-menu">
+                <div class="column fourth">
+                  <span class="date">{{item.created_time | date:'shortDate'}}<i class="blocker fa fa-calendar-o"></i></span>
+                </div>
+                <div class="column half">
+                  <span class="username">{{item.user.username}}</span>
+                </div>
+                <div class="column fourth">
+                <span class="likes"><a data-ng-click="likeMedia(item.id)">{{item.likes.count}}<i class="blocker fa fa-heart"></i></a></span>
+                </div>
+              </div>
+            </div>
         </li>
-    </ul>
+      </ul>
+      </div>
   </div>
 </section>
 
 <footer class="footer">
-  <button data-ng-click="nextPage()">more images</button>
+  <button class="search-button" data-ng-click="nextPage()">more images</button>
   <p>you are here!</p>
 </footer>

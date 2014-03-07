@@ -2,7 +2,14 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', ['$scope', '$rootScope', 'profileService', 'currentLocation', 'getPhotosFromLocation', 'photoTagService', 'serviceType', 'userService', 'searchLocation', 'pagingService', 'likeService', 'loginService', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService, loginService) {
+  .controller('MainCtrl', ['$scope', '$rootScope', 'profileService', 'currentLocation', 'getPhotosFromLocation', 'photoTagService', 'serviceType', 'userService', 'searchLocation', 'pagingService', 'likeService', 'loginService', 'getService', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService, loginService, getService) {
+
+    $scope.data = [
+      {name: "Greg", score: 98},
+      {name: "Ari", score: 96},
+      {name: 'Q', score: 75},
+      {name: "Loser", score: 48}
+    ];
 
     function fixDate (item){
       item['created_time'] += '000';
@@ -14,37 +21,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     }
 
     $scope.loading = false;
-    $scope.searchType = 'noun';
-    $scope.searchView = '';
-    $scope.viewOption = [{name:"search"}, {name:"view"}];
-    $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
-
-    $scope.$watch('searchView', function(newValue, oldValue) {
-      console.log(newValue);
-      if(newValue.name === 'view'){
-        $scope.listOption = [{name:"Current location"},{name:"tags"}];
-      } else {
-        $scope.listOption = [{name:"location"}, {name:"users"},{name:"tags"}];
-      }
-    });
-
-    $scope.$watch('searchType', function(newValue, oldValue) {
-      console.log(newValue);
-      if(newValue.name === 'Current location'){
-        currentLocation.getCurrentLocation().then(function(data){
-          var geo = {
-              lat: data.coords.latitude,
-              lng: data.coords.longitude
-          };
-          var path = 'lat=' + geo.lat + '&lng=' + geo.lng
-
-          return path;
-        }).then(getPhotosFromLocation.get).then(function(data){
-           $scope.place = data.data.data;
-           $scope.place.map(fixDate);
-        });
-      }
-    });
+    $scope.searchType = 'tags';
 
     $scope.getPageId = function (page) {
       if($scope.searchType.name === 'tags'){
@@ -62,6 +39,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
 
     $scope.megaSearch = function(search){
+      $scope.search = search;
       //searching loction
       loadingMedia();
       if($scope.searchType.name === 'location'){
@@ -70,12 +48,14 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
           search = data;
         });
       }
-
-      serviceType.get($scope.searchView, $scope.searchType, search).then(function(response){
+      console.log($scope.searchView, $scope.searchType, $scope.search);
+      getService.get($scope.searchType, $scope.search).then(function(response){
         loadingMedia();
         $scope.place = response.data.data;
+        $scope.place.map(fixDate);
         $scope.getPageId(response.data.pagination);
         console.log($scope.place)
+        console.log(response)
       });
     };
 
@@ -113,6 +93,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     $scope.likeMedia = function(item){
       likeService.post(item).then(function(data){
         console.log("Liked");
+        $scope.megaSearch($scope.search);
       });
     };
 

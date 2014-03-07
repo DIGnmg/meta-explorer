@@ -16,14 +16,44 @@ angular.module('metaexplorer.services', [])
   }
 }])
 
+.service('listService', ['$http','$q', function($http, $q){
+  return {
+    query: function (type, search) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/listing/',
+          params:{
+            type: type,
+            q: search
+          }
+      });
+    }
+  }
+}])
+
+.service('getService', ['$http','$q', function($http, $q){
+  return {
+    get: function (type, userID) {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/get/',
+          params:{
+            type: type,
+            q: userID
+          }
+      })
+    }
+  }
+}])
+
 .service('serviceType', ['$http','$q', function($http, $q){
   return {
     get: function (view, type, search) {
       return $http({
           method: 'GET',
           url: 'http://localhost:3000/test/',
-          params:{view: view.name,
-            type: type.name,
+          params:{
+            type: type,
             search: search
           }
       })
@@ -116,11 +146,12 @@ angular.module('metaexplorer.services', [])
           }
       })
     },
-    get: function (userID) {
+    get: function (type, userID) {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/user/',
+          url: 'http://localhost:3000/get/',
           params:{
+            type: type,
             q: userID
           }
       })
@@ -135,7 +166,7 @@ angular.module('metaexplorer.services', [])
           method: 'GET',
           url: 'http://localhost:3000/paging/',
           params:{
-            type: type.name,
+            type: type,
             q: search,
             max: pagingIDs.nextMax,
             min: pagingIDs.nextMin

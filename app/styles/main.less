@@ -29,18 +29,6 @@ body{
   margin: 0;
 }
 
-/* nav {
-  float: right;
-  margin-top: .5em;
-  a {
-    color: #999999;
-    margin: 0 10px 0 10px;
-  }
-  a:active{
-    border-bottom: 1px #000 solid;
-  }
-} */
-
 ul {
   display: inline-block;
   padding: 0;
@@ -52,17 +40,10 @@ ul {
       padding: 7px;
     }
 }
-a{
-  color: #a4c853;
-}
 
 img {
   display: inherit;
 }
-
-/* .margin-space-top{
-  margin-top: 5rem;
-} */
 
 /* Headers
 -------------------------------------------------------------- */
@@ -117,56 +98,108 @@ p {
 
 /* Design
 -------------------------------------------------------------- */
-
-.mad-lib{
-  font-size: 3rem;
+.search-button{
+  background-color: transparent;
+  border: 2px #053d47 solid;
+  font: 200 2.25rem 'Source Sans Pro', sans-serif;
+  padding: .590rem .590rem .590rem .590rem;
+}
+.round-icon{
+  border-radius: 50%;
+  background: #579ae3;
+  border: 4px #fff solid;
+  color: #fff;
+  width: 100px;
+  height: 100px;
+/*   float: left;
+  margin: 0 20px 20px 0; */
+}
+.search-group{
+  background: #579ae3;
 }
 
 .image-wrapper{
+  margin: 8px;
+  display: inline-block;
   position: relative;
-  .underlay{
-    background-color: #497eb8;
-    color:  #24384d;
-    height: 34px;
+  border: 1px #D1CEBC solid;
+  &:hover .underlay{
+/*     margin: 0px;
+    opacity: 1;
+
+    opacity: 1;
     position: absolute;
-    bottom: 30px;
-    left: 0;
     right: 0;
+    top: 226px;
+    z-index: 1000; */
+  }
+  .underlay{
+    /* background-color: #497eb8; */
+    color:  #24384d;
+    height: 40px;
     text-align: center;
     opacity: 1;
+    transition: all 0.4s ease;
+
+    .date{
+      font-weight: 900;
+      color:#E6830C;
+    }
+    .blocker{
+      display: block;
+    }
+    .username{
+      font-weight: 900;
+    }
+    .like-menu{
+
+      .likes a{
+        color: #51B6B0;
+        cursor: pointer;
+        font-weight: 900;
+        &:hover{
+          color: #E119D5;
+        }
+      }
+      .heart{
+
+      }
+    }
   }
 }
-.active {
-  color: #2b79b6;
-  border-bottom: 1px #2b79b6 solid;
+
+section.body-style{
+  background: #579ae3;
+  padding: 0 0 35px 0;
 }
 
-ul.grid{
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  list-style: none;
-    li{
-      display: block;
-      float: left;
-      padding: 7px;
-    }
+/* .gradient {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.75)));
+  background-image: -webkit-radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
+  background-image: -moz-radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
+  background-image: -o-radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
+  background-image: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
+
+  -webkit-transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
+  -moz-transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
+  -o-transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
+  transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
 }
+.image-wrapper:hover .gradient, .underlay {
+opacity: 1;
+} */
 
 .rvm-image-wrapper img{
     max-width:100% !important;
     display:block;
     margin: 0 auto;
-}
-
-section.color-stripe:nth-of-type(odd) {
-  border-top: none;
-  background-color: #ffffff;
-  color: #505050;
-  p {
-    color: #505050;
-  }
 }
 
 .non-block-header{
@@ -269,41 +302,101 @@ section.color-stripe:nth-of-type(odd) {
 
 /* Hidden Nav
 -------------------------------------------------------------- */
-
-select, input {
-  width: 268px;
-  padding: 5px;
-  font-size: 16px;
-  border: 1px solid gray;
-  border-radius: 0;
-  height: 34px;
-  -webkit-appearance: none;
-
-  //
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  //font-size: inherit;
-  color: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-
-  line-height: inherit;
-  display: inline-block;
-  color: #b14943;
-  cursor: pointer;
-  border-bottom: 1px dashed #b14943;
-  text-decoration:line-through
+.type-bar{
+  opacity: 0;
+  transition: opacity 0s linear 205ms;
+  button{
+    font-size: 3rem;
+  }
 }
-/* input {
-  width: 268px;
-  padding: 5px;
-  font-size: 16px;
-  border: 1px solid gray;
-  border-radius: 0;
-  height: 34px;
-  -webkit-appearance: none;
-} */
+
+.type-bar.bar-open {
+  opacity: 1;
+}
+
+.type-bar.bar-open button {
+  opacity: 1;
+}
+.type-bar.bar-open button:hover {
+  color: #f0d705;
+  border: 4px #f0d705 solid;
+}
+
+button.active {
+  color: #f0d705;
+  border: 4px #f0d705 solid;
+}
+
+.type-bar.bar-open button:faded {
+  color: #f0d705;
+  border: 4px #f0d705 solid;
+}
+
+.type-bar.bar-open button:nth-child(2) {
+  transition-delay: 35ms;
+}
+
+.type-bar.bar-open button:nth-child(3) {
+  transition-delay: 70ms;
+}
+
+.type-bar.bar-open button:nth-child(4) {
+  transition-delay: 105ms;
+}
+
+//
+
+.search-group input[type="search"] {
+position: relative;
+-webkit-appearance: none;
+background: none;
+border: none;
+color: #ffffff;
+font: 200 2.25rem 'Source Sans Pro', sans-serif;
+padding: .625rem .625rem .625rem 3rem;
+text-align: left;
+transition: background 300ms ease-in-out;
+width: 22.5rem;
+}
+.search-group input[type="search"]:focus {
+background: rgba(255,255,255,.7);
+outline: none;
+}
+.search-group:before {
+//content: url(../images/search.svg);
+margin-left: 0;
+margin-right: -2.5rem;
+}
+
+/// Searched List
+.addressSearchInput{
+  position: absolute;
+  width: 100%;
+  margin-top: -1px;
+  z-index: 125;
+  top: 100%;
+  background: #fff;
+  color: #000;
+  border-radius: 0 0 4px 4px;
+  list-style: none;
+  font-size: 1rem;
+  //@include box-shadow(0 4px 5px rgba(0, 0, 0, .15));
+  border: 1px solid #5897fb;
+  border-top: none;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.address-list{
+  padding: 3px 7px 4px;
+  margin: 0;
+  cursor: pointer;
+  min-height: 1em;
+}
+.selected-address {
+  background: #3875d7;
+  color: #fff;
+}
+.hidden {
+  display: none;
+}

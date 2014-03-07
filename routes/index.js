@@ -27,7 +27,7 @@ exports.SearchLocation = function(req, res, next) {
 
 };
 
-exports.SearchTags = function(req, res, next) {
+exports.getTags = function(req, res, next) {
 	var search = req.query.term,
  	tokenid = "access_token="+req.session.passport.user.token;
  	if (search) {
@@ -44,17 +44,37 @@ exports.SearchTags = function(req, res, next) {
 
 };
 
-exports.getUser = function(req, res, next) {
-	var tokenid = "access_token="+req.session.passport.user.token,
- 	userid = req.query.q;
+exports.SearchListing = function(req, res, next) {
+	var search = req.query.q,
+	type = req.query.type,
+ 	tokenid = "&access_token="+req.session.passport.user.token;
+ 	if (search) {
+	   	var url = "https://api.instagram.com/v1/"+type+"/search?q="+search;
+	   	//https://api.instagram.com/v1/tags/search?q=jack&access_token=ACCESS-TOKEN
+	   	//https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN
+		url + tokenid
+		console.log(url += tokenid);
+		var gram = request.get({url:url}, function (e, r, body) { console.log('tags');})
+		req.pipe(gram)
+		gram.pipe(res)
+	} else {
+		 next();
+	}
 
+};
+
+exports.getItem = function(req, res, next) {
+	var tokenid = "access_token="+req.session.passport.user.token,
+	type = req.query.type,
+ 	userid = req.query.q;
+ 	
  	if(!userid){
  		userid = req.session.passport.user.igId;
  	}
-
  	if (userid) {
-		var url = "https://api.instagram.com/v1/users/"+userid+"/media/recent?";
+		var url = "https://api.instagram.com/v1/"+type+"/"+userid+"/media/recent?";
 	   			//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
+	   			//https://api.instagram.com/v1/tags/snow/media/recent?access_token=ACCESS-TOKEN
 		url + tokenid
 		console.log(url += tokenid);
 		var gram = request.get({url:url}, function (e, r, body) { console.log('user id');})
@@ -89,20 +109,11 @@ exports.testCall = function(req, res, next) {
 	console.log(req.query);
 
 	var search = req.query.search,
-	view = req.query.view,
 	type = req.query.type,
 	tokenid = "&access_token="+req.session.passport.user.token,
 	url;
 
-	if (view == 'search'){
-		url = "https://api.instagram.com/v1/"+type+"/"+view+"?q="+search;
-			//https://api.instagram.com/v1/users/search?q=jack&access_token=ACCESS-TOKEN
-		url + tokenid
-		console.log(url += tokenid);
-		var netflix = request.get({url:url}, function (e, r, body) { console.log('hello');})
-		req.pipe(netflix)
-		netflix.pipe(res)
-	} else if (view == 'view') {
+	if (type) {
 		url = "https://api.instagram.com/v1/"+type+"/"+search+"/media/recent?";
 	   			//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
 		url + tokenid
