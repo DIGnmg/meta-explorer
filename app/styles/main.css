@@ -1465,7 +1465,7 @@
   box-sizing: border-box;
 }
 html {
-  font: 100%/1.5 "Open Sans", sans-serif;
+  font: 200 'Source Sans Pro', sans-serif;
   font-weight: 400;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -1568,16 +1568,6 @@ p {
   position: relative;
   border: 1px #D1CEBC solid;
 }
-.image-wrapper:hover .underlay {
-  /*     margin: 0px;
-    opacity: 1;
-
-    opacity: 1;
-    position: absolute;
-    right: 0;
-    top: 226px;
-    z-index: 1000; */
-}
 .image-wrapper .underlay {
   /* background-color: #497eb8; */
   color: #24384d;
@@ -1608,28 +1598,6 @@ section.body-style {
   background: #579ae3;
   padding: 0 0 35px 0;
 }
-/* .gradient {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.75)));
-  background-image: -webkit-radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
-  background-image: -moz-radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
-  background-image: -o-radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
-  background-image: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.75));
-
-  -webkit-transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
-  -moz-transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
-  -o-transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
-  transition: all 0.5s cubic-bezier(0, 0.91, 0.395, 1.3);
-}
-.image-wrapper:hover .gradient, .underlay {
-opacity: 1;
-} */
 .rvm-image-wrapper img {
   max-width: 100% !important;
   display: block;
@@ -1647,6 +1615,13 @@ opacity: 1;
 .row {
   padding: 1rem 1rem 0 1rem;
   margin-bottom: 1rem;
+}
+div.header h3 {
+  padding-bottom: 38px;
+  text-decoration: underline;
+}
+.footer {
+  padding: 30px 0 30px;
 }
 .row:last-of-type {
   margin-bottom: 0;
@@ -1715,9 +1690,6 @@ opacity: 1;
   }
   section.body-style {
     background: #f5f5f5;
-    padding: 30px 0 30px;
-  }
-  footer.footer {
     padding: 30px 0 30px;
   }
   .header-style {
