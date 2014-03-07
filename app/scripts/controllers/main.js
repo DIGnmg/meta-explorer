@@ -55,6 +55,22 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       });
     };
 
+    $scope.currentLocation = function(){
+     currentLocation.getCurrentLocation().then(function(data){
+        var geo = {
+            lat: data.coords.latitude,
+            lng: data.coords.longitude
+        };
+        var path = 'lat=' + geo.lat + '&lng=' + geo.lng
+
+        return path;
+      }).then(getPhotosFromLocation.get).then(function(data){
+          $scope.place = data.data.data;
+          $scope.place.map(fixDate);
+      });
+    };
+
+
     // Search Funtions for User and Tags
     $scope.searchUser = function(userID){
       userService.get(userID).then(function(response){

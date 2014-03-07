@@ -5,7 +5,7 @@
   </div>
   <ul>
     <li class="active"><a ng-href="#">Home</a></li>
-    <li><a href="#/login">Log In</a></li>
+    <li><a href="/auth/instagram">Log In</a></li>
     <li><a data-ng-click="logOut()" href="#">Log Out</a></li>
     <li><a href="#/account">Account</a></li>
   </ul>
@@ -41,7 +41,7 @@
           <div class="column full type-bar bar-open">
             <button class="round-icon" data-type-flip="users" type="button"><i class="fa fa-users"></i></button>
             <button class="round-icon" data-type-flip="tags" type="button"><i class="fa fa-tags"></i></button>
-            <button class="round-icon" data-type-flip="location" type="button"><i class="fa fa-location-arrow"></i></button>
+            <button class="round-icon" data-ng-click="currentLocation()" data-type-flip="location" type="button"><i class="fa fa-location-arrow"></i></button>
           </div>
         </div>
       </form>

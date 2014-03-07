@@ -114,7 +114,7 @@ app.get('/auth/instagram/callback',
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/', routes.index);
 });
 
 function ensureAuthenticated(req, res, next) {
