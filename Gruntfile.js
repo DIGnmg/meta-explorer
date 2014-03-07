@@ -264,7 +264,7 @@ module.exports = function (grunt) {
 	}
 	});
 
-	grunt.registerTask('heroku:production', 'clean less mincss uglify');
+	grunt.registerTask('heroku', ['build'])
 
 	grunt.registerTask('server', function (target) {
 		if (target === 'dist') {
