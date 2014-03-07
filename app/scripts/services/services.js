@@ -160,19 +160,34 @@ angular.module('metaexplorer.services', [])
 }])
 
 .service('pagingService', ['$http','$q', function($http, $q){
+    function pageBuilder(flag, id, search, page){
+      var pageOpt = {
+        flag: flag,
+        id: id || '',
+        search: search || '',
+        nextMax: page.next_max_tag_id || page.next_max_id
+      }
+      console.log(pageOpt);
+      return pageOpt;
+    }
   return {
-    get: function (type, search, pagingIDs) {
+    get: function (pageOpt) {
       return $http({
           method: 'GET',
           url: 'http://localhost:3000/paging/',
           params:{
-            type: type,
-            q: search,
-            max: pagingIDs.nextMax,
-            min: pagingIDs.nextMin
+            flag: pageOpt.flag,
+            q: pageOpt.search,
+            max: pageOpt.nextMax,
+            userid: pageOpt.id
           }
       })
-    }
+    },
+    set: function (flag, id, search, page) {
+      var page = pageBuilder(flag, id, search, page)
+      return page;
+
+      }
   }
 }])
 

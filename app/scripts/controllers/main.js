@@ -21,22 +21,8 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     }
 
     $scope.loading = false;
+    $scope.paging = false;
     $scope.searchType = 'tags';
-
-    $scope.getPageId = function (page) {
-      if($scope.searchType.name === 'tags'){
-        $scope.paging = {
-          nextMin: page.min_tag_id,
-          nextMax: page.next_max_tag_id
-        };
-      } else {
-        $scope.paging = {
-          nextMax: page.next_max_id
-        };
-      }
-      return;
-    };
-
 
     $scope.megaSearch = function(search){
       $scope.search = search;
@@ -48,25 +34,24 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
           search = data;
         });
       }
-      console.log($scope.searchView, $scope.searchType, $scope.search);
+
       getService.get($scope.searchType, $scope.search).then(function(response){
         loadingMedia();
         $scope.place = response.data.data;
         $scope.place.map(fixDate);
-        $scope.getPageId(response.data.pagination);
-        console.log($scope.place)
-        console.log(response)
+        $scope.paging = pagingService.set($scope.searchType, response.data.data[0].user.id, $scope.search, response.data.pagination);
       });
     };
 
     // Paging
     $scope.nextPage = function(){
-      pagingService.get($scope.searchType, $scope.item, $scope.paging).then(function(response){
+      pagingService.get($scope.paging).then(function(response){
         $scope.nextpage = response.data.data;
+        $scope.nextpage.map(fixDate);
         var tempArray = [];
         tempArray = $scope.place.concat($scope.nextpage);
         $scope.place = tempArray;
-        $scope.getPageId(response.data.pagination);
+        $scope.paging = pagingService.set($scope.searchType, response.data.data[0].user.id, $scope.search, response.data.pagination);
       });
     };
 

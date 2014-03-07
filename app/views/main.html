@@ -49,8 +49,8 @@
 
 <section class="container">
   <div class="row clearfix">
+    <span data-ng-show="loading" class="">Loading...</span>
     <div class="column third" data-ng-repeat="item in place">
-      <span data-ng-show="loading" class="">Loading...</span>
       <ul class="grid">
         <li class="image-wrapper">
           <div>
@@ -83,6 +83,5 @@
 </section>
 
 <footer class="footer">
-  <button class="search-button" data-ng-click="nextPage()">more images</button>
-  <p>you are here!</p>
+  <button class="search-button" data-ng-show="paging" data-ng-click="nextPage()">more images</button>
 </footer>

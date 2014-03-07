@@ -29,9 +29,9 @@ angular.module('metaexplorer.directives', [])
 	link: function ($scope, $element, $attr) {
 		$element.bind('click', function(){
 			$scope.searchType = $attr.typeFlip;
-			console.log($scope.searchType)
 			$('.active').removeClass('active');
 			$element.addClass('active');
+			$scope.$evalAsync();
 		});
 
 	}
@@ -40,8 +40,8 @@ angular.module('metaexplorer.directives', [])
 
 .directive({
 	searchField: [
-	'searchLocation', 'listService', 'getService', '$compile',
-		function (searchLocation, listService, getService, $compile) {
+	'searchLocation', 'listService', 'getService','pagingService', '$compile',
+		function (searchLocation, listService, getService, pagingService, $compile) {
 			return {
 				restrict: 'A',
 				replace: false,
@@ -103,15 +103,9 @@ angular.module('metaexplorer.directives', [])
 							var selectedAddress = menuScope.myaddress[index];
 							if(selectedAddress){
 								console.log(selectedAddress.id);
-									getService.get(scope.searchType ,selectedAddress.id).then(function(res){
-										scope.place = res.data.data;
-										var page = res.data.pagination
-										scope.paging = {
-										  nextMin: page.min_tag_id,
-										  nextMax: page.next_max_tag_id || page.next_max_id
-										}
-										console.log(scope.place);
-										console.log(res);
+									getService.get(scope.searchType ,selectedAddress.id).then(function(response){
+										scope.paging = pagingService.set(scope.searchType, response.data.data[0].user.id, scope.search, response.data.pagination);
+										scope.place = response.data.data;
 									});
 							}
 							scope.$evalAsync();

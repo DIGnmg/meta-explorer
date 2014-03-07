@@ -67,7 +67,7 @@ exports.getItem = function(req, res, next) {
 	var tokenid = "access_token="+req.session.passport.user.token,
 	type = req.query.type,
  	userid = req.query.q;
- 	
+
  	if(!userid){
  		userid = req.session.passport.user.igId;
  	}
@@ -128,20 +128,28 @@ exports.testCall = function(req, res, next) {
 
 exports.Paging = function(req, res, next) {
  	var search = req.query.q,
- 	min_id = req.query.min,
  	max_id = req.query.max,
- 	type = req.query.type,
+ 	flag = req.query.flag,
+ 	userid = req.query.userid,
  	tokenid = "&access_token="+req.session.passport.user.token;
 
- 	if (search) {
-		url = "https://api.instagram.com/v1/" + type + "/" + search +"/media/recent?" + "max_id=" + max_id;
-		//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
-		url + tokenid
-		console.log(url += tokenid);
-		var gram = request.get({url:url}, function (e, r, body) { console.log('user images');})
-		req.pipe(gram)
-		gram.pipe(res)
-	} else {
+ 	if(flag ==='tags'){
+	 	url = "https://api.instagram.com/v1/" + flag + "/" + search +"/media/recent?" + "max_id=" + max_id;
+	 	//https://api.instagram.com/v1/tags/snowy/media/recent/?access_token=ACCESS-TOKEN
+	 	url + tokenid
+	 	console.log(url += tokenid);
+	 	var gram = request.get({url:url}, function (e, r, body) { console.log('user images');})
+	 	req.pipe(gram)
+	 	gram.pipe(res)
+ 	} else if (flag === 'users'){
+	 	url = "https://api.instagram.com/v1/" + flag + "/" + userid +"/media/recent?" + "max_id=" + max_id;
+	 	//https://api.instagram.com/v1/users/3/media/recent/?access_token=ACCESS-TOKEN
+	 	url + tokenid
+	 	console.log(url += tokenid);
+	 	var gram = request.get({url:url}, function (e, r, body) { console.log('user images');})
+	 	req.pipe(gram)
+	 	gram.pipe(res)
+ 	} else {
 		 next();
 	}
 
