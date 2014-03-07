@@ -264,7 +264,7 @@ module.exports = function (grunt) {
 	}
 	});
 
-	grunt.registerTask('heroku', ['build'])
+	grunt.registerTask('heroku:production', ['build'])
 
 	grunt.registerTask('server', function (target) {
 		if (target === 'dist') {
