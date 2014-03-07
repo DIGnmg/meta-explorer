@@ -1549,7 +1549,7 @@ h3 {
   letter-spacing: -1px;
   line-height: 1;
   font-weight: normal;
-  color: #63bdc9;
+  color: #053d47;
 }
 p {
   color: #053D47;
@@ -1565,8 +1565,8 @@ p {
   position: relative;
 }
 .image-wrapper .underlay {
-  background-color: #505050;
-  color: #e67f1f;
+  background-color: #78c4cd;
+  color: #5b5147;
   height: 34px;
   position: absolute;
   bottom: 30px;

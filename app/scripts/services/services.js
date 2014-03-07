@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('metaexplorer.services', [])
-
-.service('profileService', function($http, $q) {
+.service('profileService', ['$http','$q', function($http, $q) {
 
   return {
     //url = https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&client_id=6c915f96b07a44c381fb5c6bfe5e40ed
@@ -15,9 +14,9 @@ angular.module('metaexplorer.services', [])
       }).then(readMovieResponse);
     }
   }
-})
+}])
 
-.service('serviceType', function($http, $q){
+.service('serviceType', ['$http','$q', function($http, $q){
   return {
     get: function (view, type, search) {
       return $http({
@@ -30,9 +29,9 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-})
+}])
 
-.service('currentLocation', function($q, $window){
+.service('currentLocation', ['$q','$window', function($q, $window){
   return {
     getCurrentLocation: function(){
       var defer = $q.defer();
@@ -40,9 +39,9 @@ angular.module('metaexplorer.services', [])
       return defer.promise;
       }
   }
-})
+}])
 
-.service('searchLocation', function($http, $q){
+.service('searchLocation', ['$http','$q', function($http, $q){
 
     function getMappedComponentData(googleLocation) {
       // Map location components by type key
@@ -67,9 +66,9 @@ angular.module('metaexplorer.services', [])
       });
     }
   }
-})
+}])
 
-.service('getPhotosFromLocation', function($http, $q){
+.service('getPhotosFromLocation', ['$http','$q', function($http, $q){
   return {
     get: function (item) {
       return $http({
@@ -81,9 +80,9 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-})
+}])
 
-.service('photoTagService', function($http, $q){
+.service('photoTagService', ['$http','$q', function($http, $q){
   return {
     query: function (item) {
       return $http({
@@ -104,9 +103,9 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-})
+}])
 
-.service('userService', function($http, $q){
+.service('userService', ['$http','$q', function($http, $q){
   return {
     query: function (item) {
       return $http({
@@ -127,9 +126,9 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-})
+}])
 
-.service('pagingService', function($http, $q){
+.service('pagingService', ['$http','$q', function($http, $q){
   return {
     get: function (type, search, pagingIDs) {
       return $http({
@@ -144,9 +143,9 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-})
+}])
 
-.service('likeService', function($http, $q){
+.service('likeService', ['$http','$q', function($http, $q){
   return {
     post: function (mediaId) {
       return $http({
@@ -158,9 +157,9 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-})
+}])
 
-.service('loginService', function($http, $q){
+.service('loginService', ['$http','$q', function($http, $q){
   return {
     logIn: function () {
       return $http({
@@ -175,5 +174,5 @@ angular.module('metaexplorer.services', [])
       })
     }
   }
-});
+}]);
 

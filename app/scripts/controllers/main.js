@@ -2,7 +2,7 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService, loginService) {
+  .controller('MainCtrl', ['$scope', '$rootScope', 'profileService', 'currentLocation', 'getPhotosFromLocation', 'photoTagService', 'serviceType', 'userService', 'searchLocation', 'pagingService', 'likeService', 'loginService', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService, loginService) {
 
     function fixDate (item){
       item['created_time'] += '000';
@@ -128,9 +128,9 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       });
     };
 
-})
+}])
 
-.controller('UserCtrl', function ($scope, $rootScope, userService) {
+.controller('UserCtrl', ['$scope', '$rootScope', 'userService', function ($scope, $rootScope, userService) {
     function fixDate (item){
       item['created_time'] += '000';
       return item;
@@ -142,4 +142,4 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       $scope.place.map(fixDate);
       $scope.user = data.data.data[0].user
     });
-});
+}]);
