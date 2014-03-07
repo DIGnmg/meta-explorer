@@ -162,13 +162,16 @@ angular.module('metaexplorer.services', [])
 
 .service('loginService', function($http, $q){
   return {
-    get: function () {
+    logIn: function () {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/user/',
-          params:{
-            mediaId: mediaId
-          }
+          url: 'http://localhost:3000/login'
+      })
+    },
+    logout: function () {
+      return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/logout'
       })
     }
   }

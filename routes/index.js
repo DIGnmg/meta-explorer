@@ -154,3 +154,9 @@ exports.LikeMedia = function(req, res, next){
 	}
 
 };
+
+exports.UserLog = function(req, res){
+	console.log(req.isAuthenticated())
+	//if (req.isAuthenticated()) { return next(); }
+	res.send({ user: req.isAuthenticated() });
+};

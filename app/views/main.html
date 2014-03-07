@@ -2,12 +2,19 @@
     <ul class="nav">
       <li class="active"><a ng-href="#">Home</a></li>
       <li><a href="#/login">Log In</a></li>
+      <li><a data-ng-click="logOut()" href="#">Log Out</a></li>
       <li><a href="#/account">Account</a></li>
     </ul>
     <h3 class="text-muted">metaexplorer</h3>
 </header>
 
-<section class="row">
+<section data-ng-show="!locksmith" class="row">
+  <div class="container">
+    <p>Looks like you need to log in!<p>
+  </div>
+</section>
+
+<section data-ng-show="locksmith" class="row">
   <div class="container">
     <form class="mad-lib" ng-submit="megaSearch(item)" >
         Hey there McAwesome! Let's
@@ -35,27 +42,6 @@
         </li>
     </ul>
   </div>
-</section>
-
-<secion>
-  <div id="picList">
-    <div class="item">
-      <div class="picture" style="background-image:url(http://d13yacurqjgara.cloudfront.net/users/14521/screenshots/1451891/thoughtspot_website_1x.png);">
-        <div class="gradient"><a class="link" href="http://dribbble.com/shots/1451891-New-website-live"></a></div>
-        <div class="underlay">
-          <a class="i round" href="http://dribbble.com/jonathanmoreira"><img src="http://d13yacurqjgara.cloudfront.net/users/14521/avatars/normal/avatar_drib-03.jpg?1367819967"></a>
-          <div class="shotStats">
-            <span class="name"><a href="http://dribbble.com/jonathanmoreira">Jonathan Moreira</a></span>
-            <span class="likes">336 Likes · 38 comments</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="animate fadeInUp item">    <div class="picture" style="background-image:url(http://d13yacurqjgara.cloudfront.net/users/14521/screenshots/1451891/thoughtspot_website_1x.png);">       <div class="gradient"><a class="link" href="http://dribbble.com/shots/1451891-New-website-live"></a></div>        <div class="underlay">            <a class="i round" href="http://dribbble.com/jonathanmoreira"><img src="http://d13yacurqjgara.cloudfront.net/users/14521/avatars/normal/avatar_drib-03.jpg?1367819967"></a>           <div class="shotStats">              <span class="name"><a href="http://dribbble.com/jonathanmoreira">Jonathan Moreira</a></span>              <span class="likes">336 Likes · 38 comments</span>           </div>        </div>    </div></div>
 </section>
 
 <footer class="footer">

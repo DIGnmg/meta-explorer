@@ -2,7 +2,7 @@
 
 angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
-  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService) {
+  .controller('MainCtrl', function ($scope, $rootScope, profileService, currentLocation, getPhotosFromLocation, photoTagService, serviceType, userService, searchLocation, pagingService, likeService, loginService) {
 
     function fixDate (item){
       item['created_time'] += '000';
@@ -109,6 +109,18 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
         console.log("Liked");
       });
     };
+
+    $scope.user = loginService.logIn().then(function(res){
+        $scope.locksmith = res.data.user;
+        console.log($scope.locksmith);
+    });
+
+    $scope.logOut = function(item){
+      loginService.logout().then(function(res){
+        $scope.locksmith = res.data.user;
+      });
+    };
+
 })
 
 .controller('UserCtrl', function ($scope, $rootScope, userService) {

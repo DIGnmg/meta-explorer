@@ -96,9 +96,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
   res.render('account', { user: req.user });
 });
 
-app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
-});
+app.get('/login', routes.UserLog);
 
 // GET /auth/instagram
 //   Use passport.authenticate() as route middleware to authenticate the
