@@ -299,7 +299,7 @@ module.exports = function (grunt) {
 		'cssmin',
 		'uglify',
 		'rev',
-		//'usemin'
+		'usemin'
 	]);
 
 	grunt.registerTask('default', [
