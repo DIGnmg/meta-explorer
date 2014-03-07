@@ -255,10 +255,10 @@ module.exports = function (grunt) {
 			},
 			install: {
 				options: {
-				cleanTargetDir: false,
+				cleanTargetDir: true,
 				cleanBowerDir: false,
-				install: true,
-				copy: true
+				install: false,
+				copy: false
 			}
 		}
 	}
