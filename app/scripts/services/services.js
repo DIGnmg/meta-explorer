@@ -165,7 +165,7 @@ angular.module('metaexplorer.services', [])
     get: function () {
       return $http({
           method: 'GET',
-          url: 'http://localhost:3000/liking/',
+          url: 'http://localhost:3000/user/',
           params:{
             mediaId: mediaId
           }

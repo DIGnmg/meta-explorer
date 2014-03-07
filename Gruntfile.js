@@ -292,7 +292,7 @@ module.exports = function (grunt) {
 		'less',
 		'concurrent:dist',
 		'concat',
-		'bower',
+		//'bower',
 		'copy',
 		'cdnify',
 		'ngmin',
