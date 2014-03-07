@@ -27,16 +27,10 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
     $scope.megaSearch = function(search){
       $scope.search = search;
       //searching loction
-      loadingMedia();
-      if($scope.searchType.name === 'location'){
-        searchLocation.query(search).then(function(data){
-          $scope.place = data;
-          search = data;
-        });
-      }
+      $scope.loading = true;
 
       getService.get($scope.searchType, $scope.search).then(function(response){
-        loadingMedia();
+        $scope.loading = false;
         $scope.place = response.data.data;
         $scope.place.map(fixDate);
         $scope.paging = pagingService.set($scope.searchType, response.data.data[0].user.id, $scope.search, response.data.pagination);

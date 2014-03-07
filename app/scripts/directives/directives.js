@@ -100,12 +100,13 @@ angular.module('metaexplorer.directives', [])
 
 					var getSelectedItem = function (index) {
 							resetMenu();
+							scope.loading = true;
 							var selectedAddress = menuScope.myaddress[index];
 							if(selectedAddress){
-								console.log(selectedAddress.id);
 									getService.get(scope.searchType ,selectedAddress.id).then(function(response){
 										scope.paging = pagingService.set(scope.searchType, response.data.data[0].user.id, scope.search, response.data.pagination);
 										scope.place = response.data.data;
+										scope.loading = false;
 									});
 							}
 							scope.$evalAsync();
@@ -149,11 +150,12 @@ angular.module('metaexplorer.directives', [])
 
 					element.on('input', function () {
 						var searched = element.val();
+						scope.loading = true;
 						console.log(scope);
 						console.log(scope.searchType);
 						listService.query(scope.searchType, searched).then(function(addressList){
+							scope.loading = false;
 							menuScope.myaddress = addressList.data.data;
-							console.log(menuScope.myaddress)
 							if (menuScope.myaddress.length > 0){
 								setInputWidth();
 								menu.removeClass("hidden");

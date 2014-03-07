@@ -1359,7 +1359,7 @@
   cursor: pointer;
 }
 .menu.menu-open > div .icon {
-  color: #60a773;
+  color: #053d47;
   left: 40%;
   transform: translateX(-100%);
 }
@@ -1450,7 +1450,7 @@
 .menu ul li a {
   display: inline-block;
   padding: 0 20px;
-  color: #60a775;
+  color: #053d47;
 }
 .menu ul li a:hover {
   color: #F18260;
@@ -1717,6 +1717,9 @@ opacity: 1;
     background: #f5f5f5;
     padding: 30px 0 30px;
   }
+  footer.footer {
+    padding: 30px 0 30px;
+  }
   .header-style {
     background: #ffffff;
     padding: 20px 0 20px;
@@ -1850,7 +1853,7 @@ button.active {
   cursor: pointer;
 }
 .menu.menu-open > div .icon {
-  color: #60a773;
+  color: #053d47;
   left: 40%;
   transform: translateX(-100%);
 }
@@ -1941,7 +1944,7 @@ button.active {
 .menu ul li a {
   display: inline-block;
   padding: 0 20px;
-  color: #60a775;
+  color: #053d47;
 }
 .menu ul li a:hover {
   color: #F18260;
