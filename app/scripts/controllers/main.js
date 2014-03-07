@@ -9,6 +9,11 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       return item;
     }
 
+    function loadingMedia() {
+      $scope.loading = !$scope.loading;
+    }
+
+    $scope.loading = false;
     $scope.searchType = 'noun';
     $scope.searchView = '';
     $scope.viewOption = [{name:"search"}, {name:"view"}];
@@ -58,6 +63,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
 
     $scope.megaSearch = function(search){
       //searching loction
+      loadingMedia();
       if($scope.searchType.name === 'location'){
         searchLocation.query(search).then(function(data){
           $scope.place = data;
@@ -66,6 +72,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       }
 
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(response){
+        loadingMedia();
         $scope.place = response.data.data;
         $scope.getPageId(response.data.pagination);
         console.log($scope.place)
@@ -83,14 +90,13 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       });
     };
 
-
     $scope.locationSearch = function(search){
       serviceType.get($scope.searchView, $scope.searchType, search).then(function(data){
         $scope.place = data.data.data;
       });
     };
 
-    // Search Funtions for links
+    // Search Funtions for User and Tags
     $scope.searchUser = function(userID){
       userService.get(userID).then(function(response){
         $scope.place = response.data.data;

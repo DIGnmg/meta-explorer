@@ -1,0 +1,136 @@
+/* Menu
+-------------------------------------------------------------- */
+
+.menu{
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
+  position: relative;
+  line-height: 2.5;
+  font-weight: 400;
+  color: #1370ff;
+  padding-top: 2rem;
+}
+
+.menu > div .icon {
+	top: 0;
+	left: 0;
+	position: absolute;
+	font-size: 150%;
+	line-height: 1.6;
+	padding: 0 10px;
+	transition: all 0.4s ease;
+	cursor:pointer;
+}
+
+.menu.menu-open > div .icon {
+	color: #60a773;
+	left: 100%;
+	transform: translateX(-100%);
+}
+
+.menu > div .label {
+	padding-left: 3em;
+	position: relative;
+	display: block;
+	color: #60a773;
+	font-size: 0.9em;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	line-height: 2.75;
+	transition: all 0.2s ease-in;
+}
+
+.menu.menu-open > div .label {
+	transform: translateY(-90%);
+}
+
+.menu ul {
+	background-color: #ffffff;
+	box-shadow: 0 0 20px -2px rgba(0,0,0,.2);
+	display: none;
+	list-style: none;
+	min-width: 10rem;
+	padding: .75rem 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+ 	z-index: 1000;
+	right: -540px;
+	transition: top 3.4s ease;
+}
+.menu.menu-open ul{
+	background-color: #ffffff;
+	box-shadow: 0 0 20px -2px rgba(0,0,0,.2);
+	display: block;
+	list-style: none;
+	min-width: 10rem;
+	padding: .75rem 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1000;
+}
+
+.menu ul {
+	padding: 0;
+	margin: 0 3em 0 0;
+	list-style: none;
+	opacity: 0;
+	position: relative;
+	z-index: 0;
+	pointer-events: none;
+	transition: opacity 0s linear 205ms;
+}
+.menu.menu-open ul {
+	opacity: 1;
+	z-index: 200;
+	pointer-events: auto;
+	transition: opacity 0s linear 0s;
+}
+
+.menu ul li {
+	display: block;
+	margin: 0 0 5px 0;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.menu.menu-open ul li {
+	opacity: 1;
+}
+
+.menu.menu-open ul li:nth-child(2) {
+	transition-delay: 35ms;
+}
+
+.menu.menu-open ul li:nth-child(3) {
+	transition-delay: 70ms;
+}
+
+.menu.menu-open ul li:nth-child(4) {
+	transition-delay: 105ms;
+}
+
+.menu.menu-open ul li:nth-child(5) {
+	transition-delay: 140ms;
+}
+
+.menu.menu-open ul li:nth-child(6) {
+	transition-delay: 175ms;
+}
+
+.menu.menu-open ul li:nth-child(7) {
+	transition-delay: 205ms;
+}
+
+.menu ul li a {
+	display: inline-block;
+	padding: 0 20px;
+	color: #60a775;
+}
+
+.menu ul li a:hover {
+	color: #F18260;
+}
