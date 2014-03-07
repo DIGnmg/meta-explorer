@@ -110,6 +110,7 @@ angular.module('metaexplorer.controllers', ['metaexplorer.services'])
       });
     };
 
+    // Log user in and out
     $scope.user = loginService.logIn().then(function(res){
         $scope.locksmith = res.data.user;
         console.log($scope.locksmith);
