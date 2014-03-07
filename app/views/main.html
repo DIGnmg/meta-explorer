@@ -20,9 +20,12 @@
 <section data-ng-show="locksmith" class="row">
   <div class="container">
     <form class="mad-lib" ng-submit="megaSearch(item)" >
-        Hey there McAwesome! Let's
+        <button type="submit" id="submit">Search</button>
+        <button type="submit" id="submit">View</button>
+        <button type="submit" id="submit">Users</button>
+        <button type="submit" id="submit">Tags</button>
+        <button type="submit" id="submit">Locations</button>
         <select ng-model="searchView" ng-options="item.name for item in viewOption"></select>
-        for some
         <select ng-model="searchType" ng-options="item.name for item in listOption"></select>!
       <input data-ng-model="item" name="search" type="text">
       <button type="submit" id="submit">Search</button>
